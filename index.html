@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>스마트카 중고차 감가상각 & 취등록세 계산기 - 딜러 매입가·실매물 시세·법정 세금 조회</title>
+<meta name="description" content="국산차·수입차 전 차종 세대별 정밀 시세 및 취등록세 계산기. 딜러 매입가(팔 때), 소매 시세(살 때), 행정안전부 고시 시가표준액, 친환경차 취득세 감면 및 공채 면제 기준을 실시간으로 확인하세요.">
+<meta name="keywords" content="중고차 감가상각 계산기, 중고차 취등록세 계산기, 행안부 시가표준액, 중고차 딜러 매입가, 내 차 시세 조회, 중고차 취득세 감면">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yourdomain.com/used-car-calculator">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="스마트카 중고차 감가상각 & 취등록세 종합 계산기">
+<meta property="og:description" content="제조사·차종·세부 세대 모델별 정확한 신차 출고가 매핑 및 실거래 시세, 법정 취등록세 무료 조회.">
+<meta property="og:url" content="https://yourdomain.com/used-car-calculator">
+<meta property="og:image" content="https://yourdomain.com/og-car-calc.png">
+<meta property="og:locale" content="ko_KR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="스마트카 중고차 감가상각 & 취등록세 종합 계산기">
+<meta name="twitter:description" content="제조사·차종·세부 세대 모델별 실거래 시세 및 법정 취등록세 무료 조회">
+
+<!-- 구글 애드센스 공식 스크립트 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+<!-- 구조화된 데이터: WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "스마트카 중고차 감가상각 및 취등록세 계산기",
+  "description": "국내외 전 차종 세대별 감가상각 시세와 행정안전부 시가표준액, 지방세법 취득세를 무료로 산출하는 온라인 금융 도구",
+  "url": "https://yourdomain.com/used-car-calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "KRW"
+  }
+}
+</script>
+
+<!-- 구조화된 데이터: FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "중고차 취득세는 어떤 금액을 기준으로 산정되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "지방세법 제10조의2에 따라 이전등록 시 신고한 실제 취득가액과 행정안전부 차량 시가표준액(출고가 × 연식별 법정 잔가율) 중 더 높은 금액을 과세표준으로 하여 7%(경차 4%)의 취득세를 부과합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "친환경차(하이브리드·전기차) 및 경차의 취득세 감면 혜택은 얼마인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "지방세특례제한법에 따라 하이브리드는 최대 40만원, 전기차/수소차는 최대 140만원까지 산출세액에서 감면됩니다. 1,000cc 미만 경차는 4% 취득세율을 적용하며 75만원까지 전액 면제됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "배기량 1,600cc 미만 차량은 공채(채권) 매입 의무가 없나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네, 2023년 3월부터 전국 지자체 조례 개정으로 1,600cc 미만 비영업용 승용차(아반떼, 베뉴, 코나 1.6, 소형 SUV 등)는 도시철도/지역개발채권 매입 의무가 100% 면제되어 채권 할인 비용이 0원입니다."
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #1e3a5f;
+  --primary-light: #2563eb;
+  --primary-bg: #eff6ff;
+  --accent-green: #059669;
+  --accent-green-bg: #ecfdf5;
+  --accent-red: #dc2626;
+  --accent-red-bg: #fef2f2;
+  --accent-amber: #d97706;
+  --accent-amber-bg: #fffbeb;
+  --bg: #f0f4f8;
+  --card: #ffffff;
+  --text: #1a202c;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 6px rgba(0,0,0,0.07), 0 10px 24px rgba(0,0,0,0.08);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, '맑은 고딕', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Top Navigation Bar ─── */
+.top-nav {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 12px 20px;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1e293b;
+}
+.top-nav .brand-logo {
+  font-weight: 800;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.top-nav .nav-links {
+  display: flex;
+  gap: 16px;
+}
+.top-nav .nav-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.15s;
+  cursor: pointer;
+}
+.top-nav .nav-links a:hover { color: #60a5fa; }
+
+/* ─── Header ─── */
+header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
+  color: white;
+  padding: 44px 20px 52px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+header .badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+header h1 {
+  font-size: clamp(23px, 4.8vw, 35px);
+  font-weight: 800;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+header p {
+  font-size: clamp(14px, 2.8vw, 16px);
+  opacity: 0.88;
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ─── 광고 영역 ─── */
+.ad-zone {
+  max-width: 800px;
+  margin: 18px auto;
+  padding: 0 20px;
+  min-height: 90px;
+  text-align: center;
+}
+.ad-slot-box {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 16px 10px;
+  color: #94a3b8;
+  font-size: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.ad-slot-box .ad-tag {
+  display: block;
+  font-size: 10px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* ─── Calculator Section ─── */
+.calc-section {
+  max-width: 800px;
+  margin: -24px auto 0;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+.calc-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 30px;
+  border: 1px solid var(--border);
+}
+.calc-card h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .calc-card { padding: 18px; }
+}
+
+.form-group { display: flex; flex-direction: column; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.form-group select,
+.form-group input {
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group select:focus,
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+.form-group .input-with-unit { position: relative; }
+.form-group .input-with-unit input { width: 100%; padding-right: 50px; }
+.form-group .input-with-unit .unit {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  pointer-events: none;
+}
+.form-group .helper {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* 안내 배너 */
+.notice-box {
+  grid-column: 1 / -1;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 12px;
+  color: #1e40af;
+  line-height: 1.6;
+}
+
+/* 옵션 체크박스 */
+.options-box {
+  grid-column: 1 / -1;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-top: 4px;
+}
+.options-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+.opt-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  transition: border-color 0.15s, background 0.15s;
+}
+.opt-label:hover { background: var(--primary-bg); border-color: #bfdbfe; }
+.opt-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--primary-light); }
+
+.btn-calculate {
+  grid-column: 1 / -1;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--primary-light), #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  margin-top: 8px;
+}
+.btn-calculate:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+
+/* ─── Results Section ─── */
+#results {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+  display: none;
+}
+#results.show { display: block; animation: fadeUp 0.5s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result-header { text-align: center; margin-bottom: 22px; }
+.result-header h2 { font-size: 21px; font-weight: 800; color: var(--primary); }
+.result-header .car-name { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+
+/* 3단 시세 */
+.three-prices {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+@media (max-width: 650px) { .three-prices { grid-template-columns: 1fr; } }
+.price-box {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: center;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.price-box .tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.price-box.dealer { border-top: 4px solid var(--accent-amber); }
+.price-box.dealer .tag { background: var(--accent-amber-bg); color: var(--accent-amber); }
+.price-box.direct { border-top: 4px solid var(--accent-green); background: #fafffc; }
+.price-box.direct .tag { background: var(--accent-green-bg); color: var(--accent-green); }
+.price-box.retail { border-top: 4px solid var(--primary-light); }
+.price-box.retail .tag { background: var(--primary-bg); color: var(--primary-light); }
+
+.price-box .price-num { font-size: clamp(21px, 3.8vw, 26px); font-weight: 800; color: var(--text); margin-bottom: 4px; }
+.price-box .price-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+
+/* 행안부 법정 시가표준액 카드 */
+.official-standard-card {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.official-title { font-size: 14px; font-weight: 700; color: var(--primary); }
+.official-desc { font-size: 12px; color: var(--text-secondary); }
+.official-val { font-size: 20px; font-weight: 800; color: #334155; }
+
+/* 내 차 살 때 세금 & 부대비용 전용 카드 */
+.tax-card {
+  background: #ffffff;
+  border-radius: var(--radius);
+  border: 2px solid #3b82f6;
+  box-shadow: var(--shadow-lg);
+  padding: 26px;
+  margin-bottom: 18px;
+}
+.tax-badge {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.tax-total-banner {
+  background: linear-gradient(135deg, #1e3a5f, #1e40af);
+  color: white;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.tax-total-banner .tax-lead { font-size: 13px; opacity: 0.9; }
+.tax-total-banner .tax-sum { font-size: clamp(24px, 4.5vw, 30px); font-weight: 800; color: #67e8f9; }
+.tax-total-banner .grand-total { font-size: 13px; background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 6px; }
+
+/* 실매물 딥링크 카드 */
+.cross-check-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+  border: 1.5px solid #bfdbfe;
+  padding: 24px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+.platform-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.btn-platform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  color: white;
+  transition: transform 0.15s;
+}
+.btn-platform:hover { transform: translateY(-2px); }
+.btn-encar { background: #e61c24; }
+.btn-kb { background: #ffbc00; color: #1e293b !important; }
+.btn-kcar { background: #ff5232; }
+.btn-naver { background: #03c75a; }
+
+.detail-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  padding: 26px;
+  margin-bottom: 16px;
+}
+.detail-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+}
+
+.chart-container { position: relative; width: 100%; height: 280px; margin-bottom: 8px; }
+.chart-container canvas { width: 100% !important; height: 100% !important; }
+
+.detail-table { width: 100%; border-collapse: collapse; }
+.detail-table th, .detail-table td {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.detail-table th { font-weight: 600; color: var(--text-secondary); font-size: 12px; }
+.detail-table tr:last-child td { border-bottom: none; }
+.detail-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.detail-table .highlight { font-weight: 700; color: var(--primary-light); background: var(--primary-bg); }
+
+.info-box {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.info-box.blue { background: var(--primary-bg); color: #1e40af; }
+.info-box.green { background: var(--accent-green-bg); color: #065f46; }
+
+.action-buttons { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
+.btn-secondary {
+  padding: 10px 18px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-secondary:hover { background: #e2e8f0; }
+
+/* ─── SEO Content ─── */
+.content-section { max-width: 800px; margin: 36px auto; padding: 0 20px; }
+.content-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  padding: 34px;
+}
+.content-card h2 { font-size: 21px; font-weight: 800; color: var(--primary); margin-bottom: 18px; }
+.content-card h3 { font-size: 16px; font-weight: 700; margin: 24px 0 10px; color: var(--text); }
+.content-card p { color: #475569; margin-bottom: 12px; }
+.content-card ul { margin: 8px 0 14px 20px; color: #475569; }
+.content-card ul li { margin-bottom: 6px; }
+.content-card .tip-box {
+  background: var(--primary-bg);
+  border-left: 4px solid var(--primary-light);
+  padding: 14px 18px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 14px 0;
+  font-size: 13px;
+  color: #1e40af;
+}
+
+/* ─── FAQ ─── */
+.faq-item { border-bottom: 1px solid var(--border); padding: 14px 0; }
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-q::after { content: '+'; font-size: 18px; color: var(--text-secondary); }
+.faq-item.open .faq-q::after { content: '−'; }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.7;
+}
+.faq-item.open .faq-a { max-height: 300px; padding-top: 10px; }
+
+/* ─── Footer ─── */
+footer {
+  background: #0f172a;
+  color: #94a3b8;
+  padding: 40px 20px;
+  margin-top: 60px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.8;
+}
+footer a { color: #60a5fa; text-decoration: none; margin: 0 6px; }
+footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; opacity: 0.7; }
+
+/* ─── 첫 접속 팝업 배너 ─── */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-content {
+  background: #ffffff;
+  border-radius: var(--radius);
+  max-width: 520px;
+  width: 100%;
+  padding: 28px 24px 22px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+  position: relative;
+  text-align: center;
+}
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #94a3b8;
+  cursor: pointer;
+}
+.modal-header h3 { font-size: 19px; font-weight: 800; color: var(--primary); margin: 8px 0 6px; }
+.modal-header p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px; }
+
+.modal-ad-box {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 24px 10px;
+  margin: 14px 0 18px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.btn-modal-start {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--primary-light), #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+.modal-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #64748b;
+  padding: 0 4px;
+}
+
+/* 정책 모달 */
+.policy-modal-content { max-height: 80vh; overflow-y: auto; text-align: left; }
+.policy-modal-content h3 { font-size: 18px; margin-bottom: 12px; color: var(--primary); }
+.policy-modal-content p, .policy-modal-content li { font-size: 13px; color: #475569; line-height: 1.7; margin-bottom: 8px; }
+
+@media print {
+  .top-nav, header, .ad-zone, .btn-calculate, .action-buttons, footer, .content-section, .cross-check-card, .modal-overlay { display: none !important; }
+  #results { display: block !important; }
+  .calc-card, .detail-card, .tax-card, .official-standard-card { box-shadow: none; border: 1px solid #ddd; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ─── 0. 첫 접속 팝업 배너 (광고 포함) ─── -->
+<div id="welcomeModal" class="modal-overlay" style="display:none;">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeWelcomeModal()">&times;</button>
+    <div class="modal-header">
+      <span class="badge" style="background:#eff6ff;color:#2563eb;">🚗 스마트카 시세 서비스</span>
+      <h3>내 차 시세 & 취등록세 1초 조회</h3>
+      <p>딜러 매입가부터 이전등록 취득세까지<br>회원가입 없이 즉시 무료로 확인하세요.</p>
+    </div>
+
+    <!-- 팝업 내부 전면 광고 영역 -->
+    <div class="modal-ad-box">
+      <span class="ad-tag" style="font-size:11px;color:#94a3b8;margin-bottom:8px;">📢 SPONSORED ADVERTISEMENT</span>
+      <ins class="adsbygoogle"
+           style="display:block;min-width:280px;min-height:100px;"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="1111111111"
+           data-ad-format="rectangle"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      <div style="font-size:12px;color:#64748b;margin-top:6px;">공식 다이렉트 자동차보험료 비교 및 취등록세 비과세 조회</div>
+    </div>
+
+    <button class="btn-modal-start" onclick="closeWelcomeModal()">시세 & 세금 계산기 바로 시작</button>
+    <div class="modal-bottom-row">
+      <label style="cursor:pointer;display:flex;align-items:center;gap:4px;">
+        <input type="checkbox" id="chkDontShowToday"> 오늘 하루 다시 보지 않기
+      </label>
+      <span style="cursor:pointer;" onclick="closeWelcomeModal()">닫기</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── 상단 네비게이션 ─── -->
+<nav class="top-nav">
+  <a href="#" class="brand-logo">🚗 스마트카 계산기</a>
+  <div class="nav-links">
+    <a onclick="openPolicyModal('privacy')">개인정보처리방침</a>
+    <a onclick="openPolicyModal('terms')">이용약관</a>
+    <a onclick="openPolicyModal('about')">사이트 소개</a>
+  </div>
+</nav>
+
+<!-- ─── Header ─── -->
+<header>
+  <div class="badge">🏛️ 행정안전부 고시 시가표준액 & 지방세법 취득세율 기준</div>
+  <h1><span class="emoji">📉</span> 중고차 감가상각 & 세금 계산기</h1>
+  <p>제조사 · 대표 차종 · 세부 세대 모델별 출고가를 매핑하여<br>실거래 시세와 법정 취등록세를 정확하게 산출합니다.</p>
+</header>
+
+<!-- ─── 광고 영역 1: 상단 헤더 배너 ─── -->
+<div class="ad-zone">
+  <div class="ad-slot-box">
+    <span class="ad-tag">광고 영역 1 (상단 반응형 배너)</span>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="2222222222"
+         data-ad-format="horizontal"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div style="color:#64748b;font-size:12px;padding:4px 0;">내 차 보험료 1분 확인 · 중고차 전액 할부 금리 비교 배너 연동 위치</div>
+  </div>
+</div>
+
+<!-- ─── Calculator Form ─── -->
+<section class="calc-section">
+  <div class="calc-card">
+    <h2>🔍 차량 상세 선택 (대분류 > 중분류 > 소분류)</h2>
+    <div class="form-grid">
+
+      <!-- 1단계: 제조사 (대분류) -->
+      <div class="form-group">
+        <label for="brand">1. 제조사 / 브랜드 (대분류)</label>
+        <select id="brand" onchange="onBrandChange()">
+          <option value="">제조사 선택</option>
+        </select>
+      </div>
+
+      <!-- 2단계: 대표 모델 (중분류) -->
+      <div class="form-group">
+        <label for="model">2. 대표 차종 (중분류)</label>
+        <select id="model" onchange="onModelChange()" disabled>
+          <option value="">제조사를 먼저 선택하세요</option>
+        </select>
+      </div>
+
+      <!-- 3단계: 세부 세대 모델 (소분류) -->
+      <div class="form-group full">
+        <label for="generation">3. 세부 모델 / 세대 (소분류)</label>
+        <select id="generation" onchange="onGenerationChange()" disabled>
+          <option value="">대표 차종을 먼저 선택하세요</option>
+        </select>
+        <div id="genDesc" style="font-size:12px;color:#2563eb;margin-top:4px;font-weight:600;"></div>
+      </div>
+
+      <!-- 4단계: 연식 (선택한 세대의 생산 연도만 노출) -->
+      <div class="form-group">
+        <label for="year">4. 최초 등록 연도 (연식)</label>
+        <select id="year" onchange="onYearChange()" disabled>
+          <option value="">세부 모델을 먼저 선택하세요</option>
+        </select>
+      </div>
+
+      <!-- 주행거리 -->
+      <div class="form-group">
+        <label for="mileage">누적 주행거리</label>
+        <div class="input-with-unit">
+          <input type="number" id="mileage" placeholder="예: 45000" min="0" max="500000">
+          <span class="unit">km</span>
+        </div>
+      </div>
+
+      <!-- 연료 타입 -->
+      <div class="form-group">
+        <label for="fuel">연료 타입 (법정 감면 연계)</label>
+        <select id="fuel">
+          <option value="gasoline">가솔린 (일반 취득세 7%)</option>
+          <option value="diesel">디젤 (일반 취득세 7%)</option>
+          <option value="hybrid">하이브리드 (지방세특례 최대 40만원 감면)</option>
+          <option value="ev">전기차 (지방세특례 최대 140만원 감면)</option>
+          <option value="lpg">LPG (일반 취득세 7%)</option>
+        </select>
+      </div>
+
+      <!-- 사고 이력 -->
+      <div class="form-group">
+        <label for="accident">사고 이력</label>
+        <select id="accident">
+          <option value="none">완전 무사고 (단순 교환 없음)</option>
+          <option value="minor">단순 수리 (범퍼/휀더 단순 교환)</option>
+          <option value="moderate">사고 있음 (도어·본넷 교체 등)</option>
+          <option value="major">중대 사고 (프레임/휠하우스 손상)</option>
+        </select>
+      </div>
+
+      <!-- 출고가 입력 -->
+      <div class="form-group full">
+        <label for="newPrice">신차 출고가 (옵션 포함 실제 구매가)</label>
+        <div class="input-with-unit">
+          <input type="number" id="newPrice" placeholder="예: 3600" min="500" max="50000">
+          <span class="unit">만원</span>
+        </div>
+        <span class="helper">선택하신 세부 모델의 평균 출고가가 자동 세팅됩니다.</span>
+      </div>
+
+      <!-- 안내 배너 -->
+      <div class="notice-box">
+        <strong>📌 등록증 확인 팁:</strong> 자동차등록증 우측 하단 <strong>[⑤ 출고가격]</strong>을 입력하시면 정확한 법정 시가표준액과 취등록세를 확인하실 수 있습니다.
+      </div>
+
+      <!-- 옵션 및 상태 보정 체크박스 -->
+      <div class="options-box">
+        <div class="options-title">
+          <span>✨ 주요 옵션 & 차량 관리 상태</span>
+          <span style="font-size:11px;font-weight:normal;color:#64748b;">중복 선택 가능</span>
+        </div>
+        <div class="options-grid">
+          <label class="opt-label"><input type="checkbox" id="opt_adas" value="0.025"> 스마트센스 / 주행보조 (ADAS)</label>
+          <label class="opt-label"><input type="checkbox" id="opt_sunroof" value="0.025"> 파노라마 / 와이드 선루프</label>
+          <label class="opt-label"><input type="checkbox" id="opt_seats" value="0.015"> 통풍시트 / 나파가죽 시트</label>
+          <label class="opt-label"><input type="checkbox" id="opt_hud" value="0.015"> 헤드업디스플레이 (HUD) / 서라운드뷰</label>
+          <label class="opt-label"><input type="checkbox" id="opt_4wd" value="0.020"> 사륜구동 (4WD / AWD)</label>
+          <label class="opt-label"><input type="checkbox" id="opt_owner1" value="0.020"> 1인 신조 (소유자 변경 없음)</label>
+          <label class="opt-label"><input type="checkbox" id="opt_nosmoke" value="0.010"> 비흡연 / 실내 청결 우수</label>
+          <label class="opt-label"><input type="checkbox" id="opt_key2" value="0.005"> 스마트키 2개 보유</label>
+        </div>
+      </div>
+
+      <button class="btn-calculate" onclick="calculate()">📊 중고차 시세 & 살 때 세금 한눈에 계산하기</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 광고 영역 2: 계산 직전 배너 ─── -->
+<div class="ad-zone">
+  <div class="ad-slot-box">
+    <span class="ad-tag">광고 영역 2 (계산 결과 대기열 반응형 배너)</span>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="3333333333"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div style="color:#64748b;font-size:12px;padding:4px 0;">헤이딜러 vs 엔카 내차팔기 최고가 경매 견적 비교 배너</div>
+  </div>
+</div>
+
+<!-- ─── Results ─── -->
+<section id="results">
+  <div class="result-header">
+    <h2>📋 시세 및 구매 총비용 분석 결과</h2>
+    <div class="car-name" id="resultCarName"></div>
+  </div>
+
+  <!-- 3대 시세 분리 -->
+  <div class="three-prices">
+    <div class="price-box dealer">
+      <div class="tag">내 차 팔 때 (도매)</div>
+      <div class="price-num" id="priceDealer">—</div>
+      <div class="price-desc">딜러 매입가 / 헤이딜러 견적<br>(상사마진·상품화비 제외)</div>
+    </div>
+    <div class="price-box direct">
+      <div class="tag" style="background:#dcfce7;color:#15803d;">추천 개인 직거래</div>
+      <div class="price-num" id="priceDirect" style="color:#059669;">—</div>
+      <div class="price-desc">당근·중고나라·동호회<br>(수수료 없이 양측 최적가)</div>
+    </div>
+    <div class="price-box retail">
+      <div class="tag">내 차 살 때 (소매 시세)</div>
+      <div class="price-num" id="priceRetail" style="color:#2563eb;">—</div>
+      <div class="price-desc">엔카·KB차차차 등록 시세<br>(소비자 최종 구매 기준)</div>
+    </div>
+  </div>
+
+  <!-- 공인 행정안전부 시가표준액 카드 -->
+  <div class="official-standard-card">
+    <div>
+      <div class="official-title">🏛️ 행정안전부 법정 시가표준액 (취득세 과세기준 하한선)</div>
+      <div class="official-desc">출고가 × 고시 잔가율 <span id="statutoryRateTxt"></span> (지방세법 제10조의2)</div>
+    </div>
+    <div class="official-val" id="statutoryStandardPrice">—만원</div>
+  </div>
+
+  <!-- 내 차 살 때 세금 & 부대비용 전용 카드 -->
+  <div class="tax-card">
+    <span class="tax-badge">💡 내 차 살 때 발생하는 실제 총비용</span>
+    <h3 style="font-size:18px;font-weight:800;color:var(--primary);margin-bottom:6px;">중고차 취등록세 & 이전등록 부대비용 명세서</h3>
+    <p style="font-size:13px;color:#475569;">
+      지방세법 및 지자체 조례에 따른 정확한 법정 비용 명세서입니다.
+    </p>
+
+    <!-- 세금 총액 배너 -->
+    <div class="tax-total-banner">
+      <div>
+        <div class="tax-lead">세금 및 부대비용 총합계</div>
+        <div class="tax-sum" id="taxTotalSum">—만원</div>
+      </div>
+      <div style="text-align:right;">
+        <div class="tax-lead">차량 가격 포함 실제 필요 총예산</div>
+        <div class="grand-total" id="taxGrandTotal" style="font-size:16px;font-weight:800;color:#fff;">—만원</div>
+      </div>
+    </div>
+
+    <!-- 세부 세금 내역 테이블 -->
+    <table class="detail-table">
+      <thead>
+        <tr>
+          <th>세부 항목</th>
+          <th class="num">예상 금액</th>
+          <th class="num">산정 기준 및 법정 감면 근거</th>
+        </tr>
+      </thead>
+      <tbody id="taxDetailBody"></tbody>
+    </table>
+
+    <div class="info-box green" id="taxBenefitBox">
+      <span class="icon">✅</span>
+      <span id="taxBenefitText">친환경차 감면 혜택 안내</span>
+    </div>
+  </div>
+
+  <!-- 광고 영역 3: 세금 카드 하단 인피드 배너 -->
+  <div class="ad-zone" style="margin: 12px 0;">
+    <div class="ad-slot-box">
+      <span class="ad-tag">광고 영역 3 (세금/금융 타겟팅 광고)</span>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="4444444444"
+           data-ad-format="rectangle"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      <div style="color:#64748b;font-size:12px;padding:4px 0;">신한 마이카 / 토스 중고차 대출 3분 최저금리 조회 배너</div>
+    </div>
+  </div>
+
+  <!-- 실매물 1초 확인 딥링크 카드 -->
+  <div class="cross-check-card">
+    <h3 style="font-size:16px;font-weight:700;color:var(--primary);margin-bottom:6px;">🔍 실시간 실매물 1초 교차 검증 (무료)</h3>
+    <p style="font-size:13px;color:#475569;margin-bottom:6px;">
+      본 계산 결과와 현재 등록된 <strong>실제 시장 매물 가격</strong>을 1초 만에 비교해 보세요.
+    </p>
+    <div class="platform-buttons" id="platformLinks">
+      <a href="#" target="_blank" id="linkEncar" class="btn-platform btn-encar">🔴 엔카 실매물 검색</a>
+      <a href="#" target="_blank" id="linkKB" class="btn-platform btn-kb">🟡 KB차차차 시세 확인</a>
+      <a href="#" target="_blank" id="linkKCar" class="btn-platform btn-kcar">🟠 K Car 직영 매물</a>
+      <a href="#" target="_blank" id="linkNaver" class="btn-platform btn-naver">🟢 네이버 마이카 시세</a>
+    </div>
+  </div>
+
+  <!-- 15개년 가치 변화 차트 -->
+  <div class="detail-card">
+    <h3>📈 15개년 감가상각 가치 곡선 (소매 vs 딜러매입)</h3>
+    <div class="chart-container">
+      <canvas id="depChart"></canvas>
+    </div>
+  </div>
+
+  <!-- 광고 영역 4: 차트 하단 배너 -->
+  <div class="ad-zone" style="margin: 12px 0;">
+    <div class="ad-slot-box">
+      <span class="ad-tag">광고 영역 4 (중간 반응형 배너)</span>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="5555555555"
+           data-ad-format="horizontal"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      <div style="color:#64748b;font-size:12px;padding:4px 0;">삼성화재 / DB손해보험 다이렉트 자동차보험 비교 배너</div>
+    </div>
+  </div>
+
+  <!-- 상세 보정 내역 -->
+  <div class="detail-card">
+    <h3>🔎 산출 세부 보정 내역</h3>
+    <table class="detail-table">
+      <thead>
+        <tr>
+          <th>보정 항목</th>
+          <th class="num">적용 비율</th>
+          <th class="num">산정 사유</th>
+        </tr>
+      </thead>
+      <tbody id="detailBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 연식별 잔존가치표 -->
+  <div class="detail-card">
+    <h3>📅 연식별 잔존가치 변화표</h3>
+    <div style="overflow-x:auto;">
+      <table class="detail-table">
+        <thead>
+          <tr>
+            <th>경과 연수</th>
+            <th class="num">행안부 과세잔가율</th>
+            <th class="num">시장 실거래잔가율</th>
+            <th class="num">예상 소매가</th>
+            <th class="num">예상 딜러매입가</th>
+            <th class="num">연간 감가액</th>
+          </tr>
+        </thead>
+        <tbody id="yearlyBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 연간 유지비 -->
+  <div class="detail-card">
+    <h3>🔧 연간 예상 유지비 & 자동차세 법정 감면율</h3>
+    <table class="detail-table">
+      <tbody id="maintBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 액션 버튼 -->
+  <div class="action-buttons">
+    <button class="btn-secondary" onclick="window.print()">🖨️ 견적서 인쇄 / PDF 저장</button>
+    <button class="btn-secondary" onclick="shareResult()">📤 견적 결과 공유</button>
+    <button class="btn-secondary" onclick="resetCalc()">🔄 다른 차량 계산하기</button>
+  </div>
+</section>
+
+<!-- 광고 영역 5: 콘텐츠 상단 배너 -->
+<div class="ad-zone">
+  <div class="ad-slot-box">
+    <span class="ad-tag">광고 영역 5 (정보성 콘텐츠 상단 배너)</span>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="6666666666"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div style="color:#64748b;font-size:12px;padding:4px 0;">타이어 특가 교체 / 엔진오일 출장 교환 서비스 배너</div>
+  </div>
+</div>
+
+<!-- SEO Content -->
+<section class="content-section">
+  <article class="content-card">
+    <h2>중고차 구매 시 세금과 감가상각 가이드</h2>
+
+    <h3>📌 1. 중고차 살 때 발생하는 세금 및 부대비용 5가지</h3>
+    <p>중고차 구매 시 명의 이전을 위해 필수적으로 지출되는 법정 비용입니다.</p>
+    <ul>
+      <li><strong>취득세 (7%)</strong>: 지방세법 제10조의2에 따라 실거래가와 행정안전부 시가표준액(출고가 × 잔가율) 중 더 높은 금액의 7%가 부과됩니다. 경차는 4%(최대 75만원 면제), 하이브리드는 40만원 감면, 전기차는 140만원 감면 혜택이 적용됩니다.</li>
+      <li><strong>공채 매입비 (지자체 채권)</strong>: 1,600cc 미만 승용차는 2023년 3월부터 전국 지자체 조례로 <strong>100% 면제(0원)</strong>됩니다. 1,600cc 이상 차량은 당일 채권 할인 시 통상 차량가의 약 0.8~1.5%의 실부담이 발생합니다.</li>
+      <li><strong>매매상사 관리비용 (매도비)</strong>: 자동차관리법 시행규칙 제122조에 규정된 법정 관리비용으로, 매매단지 주차관리 및 상사 입고 실비로 수도권 기준 35~44만원 선에서 정찰 청구됩니다.</li>
+      <li><strong>성능상태점검 책임보험료</strong>: 2019년부터 의무화된 법정 보험으로, 출고 후 30일/2,000km 이내 주요 기관 고장 시 보상해 줍니다. 연식과 주행거리에 따라 3만원~22만원 수준입니다.</li>
+      <li><strong>인지대 및 증지대</strong>: 자동차 양도증명서 인지세 3,000원과 번호판 및 등록증 증지대 약 1,000원입니다.</li>
+    </ul>
+
+    <div class="tip-box">
+      <strong>💡 취등록세 산정 원칙 (지방세법):</strong> 세무서는 실거래 신고가와 행정안전부 고시 시가표준액 중 더 높은 금액을 기준으로 취득세를 산정합니다. 따라서 시가표준액을 사전에 파악하여 예산을 책정하면 세금 초과 지출을 방지할 수 있습니다.
+    </div>
+
+    <h3>📌 2. 행정안전부 자가용 승용차 법정 잔가율표 (고시 기준)</h3>
+    <table class="detail-table">
+      <thead><tr><th>경과 연수</th><th class="num">국산 승용 잔가율</th><th class="num">외산 승용 잔가율</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>1년 미만 (0년차)</td><td class="num">0.792 (79.2%)</td><td class="num">0.791 (79.1%)</td><td>신차 출고 당해</td></tr>
+        <tr><td>1년 경과</td><td class="num">0.628 (62.8%)</td><td class="num">0.627 (62.7%)</td><td>초기 감가 구간</td></tr>
+        <tr><td>2년 경과</td><td class="num">0.498 (49.8%)</td><td class="num">0.497 (49.7%)</td><td>출고가 절반 수준</td></tr>
+        <tr><td>3년 경과</td><td class="num">0.394 (39.4%)</td><td class="num">0.393 (39.3%)</td><td>제조사 일반 보증 만료</td></tr>
+        <tr><td>4년 경과</td><td class="num">0.312 (31.2%)</td><td class="num">0.311 (31.1%)</td><td>가성비 최적 구간</td></tr>
+        <tr><td>5년 경과</td><td class="num">0.247 (24.7%)</td><td class="num">0.246 (24.6%)</td><td>파워트레인 보증 만료</td></tr>
+        <tr><td>6년 경과</td><td class="num">0.196 (19.6%)</td><td class="num">0.195 (19.5%)</td><td>감가 완만 구간</td></tr>
+        <tr><td>7년 경과</td><td class="num">0.155 (15.5%)</td><td class="num">0.154 (15.4%)</td><td>안정화 구간</td></tr>
+        <tr><td>10년 이상</td><td class="num">0.100 (10.0%)</td><td class="num">0.100 (10.0%)</td><td>잔존가치 법정 최저 하한선</td></tr>
+      </tbody>
+    </table>
+  </article>
+</section>
+
+<!-- FAQ -->
+<section class="content-section" style="margin-top:0;">
+  <div class="content-card">
+    <h2>자주 묻는 질문 (FAQ)</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">중고차 살 때 발생하는 세금과 부대비용은 대략 얼마를 잡아야 하나요?</div>
+      <div class="faq-a">일반 승용차의 경우 차량 소매 가격의 약 8~10%를 부대비용 예산으로 잡으시면 안전합니다. 예를 들어 2,500만원짜리 승용차를 구매할 경우 취득세 약 140~175만원, 상사 매도비 및 보험료 약 50만원 등 총 200~230만원 안팎의 추가 비용이 발생합니다.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">하이브리드나 전기차는 취득세 감면이 어떻게 적용되나요?</div>
+      <div class="faq-a">친환경 자동차 감면 특례에 따라 하이브리드 차량은 취득세 산출세액에서 최대 40만원이 공제되며, 전기차는 최대 140만원이 공제됩니다. 경차(캐스퍼, 레이, 모닝)의 경우 4% 취득세율이 적용되며 최대 75만원까지 전액 감면됩니다.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">1,600cc 미만 차량은 왜 공채 비용이 0원인가요?</div>
+      <div class="faq-a">2023년 3월부터 서민 가계 부담 완화를 위해 전국 지자체가 비영업용 1,600cc 미만 승용차(아반떼 1.6, 베뉴, 코나 1.6 가솔린 등) 등록 시 도시철도/지역개발채권 매입 의무를 100% 면제하였기 때문입니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 광고 영역 6: 하단 푸터 직전 배너 -->
+<div class="ad-zone">
+  <div class="ad-slot-box">
+    <span class="ad-tag">광고 영역 6 (하단 고정 배너)</span>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="7777777777"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div style="color:#64748b;font-size:12px;padding:4px 0;">토스 페이 결제 혜택 / 캐롯 퍼마일 자동차보험 배너</div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="disclaimer">
+    ⚠️ 본 계산기는 행정안전부 고시 자동차 시가표준액 산정 잔가율표 및 지방세법, 지자체 조례에 따라 법정 산식을 적용한 참고용 금융 도구입니다. 정확한 차량 출고가격(자동차등록증 ⑤번)을 입력하실 경우 법정 세액을 더욱 정확하게 확인하실 수 있습니다.
+  </div>
+  <p>© 2025 스마트카 계산기 | 
+    <a onclick="openPolicyModal('privacy')">개인정보처리방침</a> · 
+    <a onclick="openPolicyModal('terms')">이용약관</a> · 
+    <a onclick="openPolicyModal('about')">운영자 정보 및 문의</a>
+  </p>
+</footer>
+
+<!-- 약관 및 개인정보처리방침 모달 -->
+<div id="policyModal" class="modal-overlay" style="display:none;">
+  <div class="modal-content policy-modal-content">
+    <button class="modal-close" onclick="closePolicyModal()">&times;</button>
+    <div id="policyContent"></div>
+  </div>
+</div>
+
+<script>
+// ═════════════════════════════════════════════════════════════
+// 1. 대분류(제조사) > 중분류(차종) > 소분류(세부 세대 모델) 데이터베이스
+// ═════════════════════════════════════════════════════════════
+const VEHICLE_HIERARCHY = {
+  "현대": {
+    factor: 1.0,
+    models: {
+      "그랜저": [
+        { name: "디 올 뉴 그랜저 (GN7)", start: 2022, end: 2026, min: 3743, max: 5244, cc: 2497, pop: 1.08 },
+        { name: "더 뉴 그랜저 IG", start: 2019, end: 2022, min: 3294, max: 4349, cc: 2497, pop: 1.07 },
+        { name: "그랜저 IG", start: 2016, end: 2019, min: 3055, max: 4160, cc: 2359, pop: 1.05 },
+        { name: "그랜저 HG", start: 2011, end: 2016, min: 2933, max: 3850, cc: 2359, pop: 1.02 },
+        { name: "그랜저 TG", start: 2005, end: 2010, min: 2450, max: 3450, cc: 2656, pop: 1.00 }
+      ],
+      "아반떼": [
+        { name: "아반떼 CN7 / 더 뉴 CN7", start: 2020, end: 2026, min: 1975, max: 2820, cc: 1598, pop: 1.05 },
+        { name: "아반떼 AD / 더 뉴 AD", start: 2015, end: 2020, min: 1420, max: 2415, cc: 1591, pop: 1.02 },
+        { name: "아반떼 MD", start: 2010, end: 2015, min: 1390, max: 1930, cc: 1591, pop: 1.00 },
+        { name: "아반떼 HD", start: 2006, end: 2010, min: 1180, max: 1650, cc: 1591, pop: 0.98 }
+      ],
+      "쏘나타": [
+        { name: "쏘나타 디 엣지", start: 2023, end: 2026, min: 2808, max: 3917, cc: 1999, pop: 1.03 },
+        { name: "쏘나타 DN8", start: 2019, end: 2023, min: 2346, max: 3650, cc: 1999, pop: 1.02 },
+        { name: "쏘나타 LF / 뉴 라이즈", start: 2014, end: 2019, min: 2255, max: 3200, cc: 1999, pop: 1.01 },
+        { name: "쏘나타 YF", start: 2009, end: 2014, min: 2020, max: 2980, cc: 1998, pop: 1.00 }
+      ],
+      "싼타페": [
+        { name: "디 올 뉴 싼타페 (MX5)", start: 2023, end: 2026, min: 3546, max: 4890, cc: 2497, pop: 1.07 },
+        { name: "싼타페 TM / 더 뉴 TM", start: 2018, end: 2023, min: 2815, max: 4350, cc: 1995, pop: 1.05 },
+        { name: "싼타페 DM / 더 프라임", start: 2012, end: 2018, min: 2765, max: 3750, cc: 1995, pop: 1.02 },
+        { name: "싼타페 CM", start: 2005, end: 2012, min: 2280, max: 3150, cc: 2188, pop: 1.00 }
+      ],
+      "투싼": [
+        { name: "투싼 NX4 / 더 뉴 NX4", start: 2020, end: 2026, min: 2680, max: 3850, cc: 1598, pop: 1.05 },
+        { name: "올 뉴 투싼 (TL)", start: 2015, end: 2020, min: 2250, max: 3180, cc: 1685, pop: 1.02 },
+        { name: "투싼 ix", start: 2009, end: 2015, min: 1980, max: 2850, cc: 1995, pop: 1.00 }
+      ],
+      "팰리세이드": [
+        { name: "더 뉴 팰리세이드", start: 2022, end: 2026, min: 3896, max: 5420, cc: 3778, pop: 1.07 },
+        { name: "팰리세이드", start: 2018, end: 2022, min: 3475, max: 4624, cc: 3778, pop: 1.05 }
+      ],
+      "코나": [
+        { name: "디 올 뉴 코나 (SX2)", start: 2023, end: 2026, min: 2446, max: 3360, cc: 1598, pop: 1.02 },
+        { name: "코나 / 더 뉴 코나 (OS)", start: 2017, end: 2023, min: 1895, max: 2950, cc: 1591, pop: 1.01 }
+      ],
+      "캐스퍼": [
+        { name: "캐스퍼 / 캐스퍼 밴", start: 2021, end: 2026, min: 1385, max: 1960, cc: 998, isCompact: true, pop: 1.03 }
+      ],
+      "스타리아": [
+        { name: "스타리아 (투어러/라운지/카고)", start: 2021, end: 2026, min: 2722, max: 4450, cc: 2199, pop: 1.02 },
+        { name: "그랜드 스타렉스", start: 2007, end: 2021, min: 2150, max: 3150, cc: 2497, pop: 1.00 }
+      ],
+      "아이오닉": [
+        { name: "아이오닉 5", start: 2021, end: 2026, min: 4695, max: 6120, cc: 0, isEV: true, pop: 1.03 },
+        { name: "아이오닉 6", start: 2022, end: 2026, min: 5200, max: 6380, cc: 0, isEV: true, pop: 1.01 }
+      ]
+    }
+  },
+  "기아": {
+    factor: 1.0,
+    models: {
+      "쏘렌토": [
+        { name: "쏘렌토 MQ4 / 더 뉴 MQ4", start: 2020, end: 2026, min: 3070, max: 4850, cc: 2151, pop: 1.09 },
+        { name: "올 뉴 / 더 뉴 쏘렌토 (UM)", start: 2014, end: 2020, min: 2785, max: 3920, cc: 1995, pop: 1.04 },
+        { name: "뉴 쏘렌토 R", start: 2012, end: 2014, min: 2645, max: 3550, cc: 1995, pop: 1.01 },
+        { name: "쏘렌토 R", start: 2009, end: 2012, min: 2430, max: 3350, cc: 1995, pop: 1.00 }
+      ],
+      "카니발": [
+        { name: "카니발 KA4 / 더 뉴 KA4", start: 2020, end: 2026, min: 3180, max: 5000, cc: 2151, pop: 1.09 },
+        { name: "올 뉴 / 더 뉴 카니발 (YP)", start: 2014, end: 2020, min: 2755, max: 4045, cc: 2199, pop: 1.04 },
+        { name: "그랜드 카니발 / 뉴 카니발", start: 2005, end: 2014, min: 2250, max: 3250, cc: 2199, pop: 1.00 }
+      ],
+      "K5": [
+        { name: "K5 3세대 (DL3 / 더 뉴 DL3)", start: 2019, end: 2026, min: 2418, max: 3550, cc: 1999, pop: 1.05 },
+        { name: "K5 2세대 (JF / 더 뉴 K5)", start: 2015, end: 2019, min: 2245, max: 3295, cc: 1999, pop: 1.01 },
+        { name: "K5 1세대 (TF / 더 뉴 K5)", start: 2010, end: 2015, min: 2050, max: 2980, cc: 1998, pop: 1.00 }
+      ],
+      "스포티지": [
+        { name: "스포티지 NQ5 / 더 뉴 NQ5", start: 2021, end: 2026, min: 2474, max: 3750, cc: 1598, pop: 1.06 },
+        { name: "스포티지 4세대 (QL)", start: 2015, end: 2021, min: 2185, max: 3120, cc: 1685, pop: 1.02 },
+        { name: "스포티지 R", start: 2010, end: 2015, min: 1980, max: 2850, cc: 1995, pop: 1.00 }
+      ],
+      "K8 / K7": [
+        { name: "K8 / 더 뉴 K8 (GL3)", start: 2021, end: 2026, min: 3299, max: 4650, cc: 2497, pop: 1.04 },
+        { name: "올 뉴 K7 / K7 프리미어", start: 2016, end: 2021, min: 2980, max: 4080, cc: 2359, pop: 1.03 },
+        { name: "K7 1세대 / 더 뉴 K7", start: 2009, end: 2016, min: 2750, max: 3750, cc: 2359, pop: 1.00 }
+      ],
+      "K3": [
+        { name: "K3 2세대 / 더 뉴 K3 (BD)", start: 2018, end: 2024, min: 1750, max: 2550, cc: 1598, pop: 1.01 },
+        { name: "K3 1세대 / 더 뉴 K3 (YD)", start: 2012, end: 2018, min: 1350, max: 2150, cc: 1591, pop: 1.00 }
+      ],
+      "셀토스": [
+        { name: "셀토스 / 더 뉴 셀토스", start: 2019, end: 2026, min: 2062, max: 2980, cc: 1598, pop: 1.04 }
+      ],
+      "모닝": [
+        { name: "모닝 JA / 더 뉴 모닝", start: 2017, end: 2026, min: 1175, max: 1820, cc: 998, isCompact: true, pop: 1.02 },
+        { name: "올 뉴 모닝 (TA)", start: 2011, end: 2017, min: 950, max: 1450, cc: 998, isCompact: true, pop: 1.00 }
+      ],
+      "레이": [
+        { name: "더 뉴 레이 / 레이 EV", start: 2017, end: 2026, min: 1340, max: 1920, cc: 998, isCompact: true, pop: 1.04 },
+        { name: "레이 1세대", start: 2011, end: 2017, min: 1160, max: 1580, cc: 998, isCompact: true, pop: 1.02 }
+      ],
+      "EV6 / EV9": [
+        { name: "EV6 / 더 뉴 EV6", start: 2021, end: 2026, min: 4870, max: 6230, cc: 0, isEV: true, pop: 1.03 },
+        { name: "EV9", start: 2023, end: 2026, min: 7337, max: 8750, cc: 0, isEV: true, pop: 1.01 }
+      ]
+    }
+  },
+  "제네시스": {
+    factor: 0.96,
+    models: {
+      "G80": [
+        { name: "G80 3세대 (RG3 / 페이스리프트)", start: 2020, end: 2026, min: 5390, max: 7650, cc: 2497, pop: 1.05 },
+        { name: "G80 2세대 (DH)", start: 2016, end: 2020, min: 4880, max: 7370, cc: 3342, pop: 1.01 },
+        { name: "제네시스 DH", start: 2013, end: 2016, min: 4660, max: 6960, cc: 3342, pop: 1.00 }
+      ],
+      "GV80": [
+        { name: "GV80 / GV80 쿠페", start: 2020, end: 2026, min: 6180, max: 8950, cc: 2497, pop: 1.06 }
+      ],
+      "GV70": [
+        { name: "GV70 / 페이스리프트", start: 2020, end: 2026, min: 4880, max: 6550, cc: 2497, pop: 1.05 }
+      ],
+      "G70": [
+        { name: "G70 / 더 뉴 G70", start: 2017, end: 2026, min: 3750, max: 5300, cc: 1998, pop: 0.98 }
+      ],
+      "G90 / EQ900": [
+        { name: "G90 4세대 (RS4)", start: 2021, end: 2026, min: 8957, max: 13800, cc: 3470, pop: 0.96 },
+        { name: "G90 3세대 (HI)", start: 2018, end: 2021, min: 7706, max: 12200, cc: 3778, pop: 0.95 },
+        { name: "EQ900", start: 2015, end: 2018, min: 7300, max: 11800, cc: 3778, pop: 0.94 }
+      ]
+    }
+  },
+  "르노코리아": {
+    factor: 0.93,
+    models: {
+      "QM6": [
+        { name: "QM6 / 더 뉴 QM6", start: 2016, end: 2026, min: 2480, max: 3650, cc: 1997, pop: 1.00 }
+      ],
+      "SM6": [
+        { name: "SM6 / 더 뉴 SM6", start: 2016, end: 2025, min: 2350, max: 3450, cc: 1997, pop: 0.97 }
+      ],
+      "XM3 / 아르카나": [
+        { name: "XM3 / 아르카나", start: 2020, end: 2026, min: 1980, max: 3150, cc: 1598, pop: 0.99 }
+      ],
+      "SM5": [
+        { name: "SM5 노바 / 플래티넘", start: 2010, end: 2019, min: 1980, max: 2750, cc: 1998, pop: 0.95 }
+      ]
+    }
+  },
+  "KG모빌리티": {
+    factor: 0.92,
+    models: {
+      "토레스": [
+        { name: "토레스 / 토레스 EVX", start: 2022, end: 2026, min: 2797, max: 3760, cc: 1497, pop: 1.02 }
+      ],
+      "티볼리": [
+        { name: "티볼리 / 베리 뉴 티볼리", start: 2015, end: 2026, min: 1650, max: 2650, cc: 1597, pop: 0.98 }
+      ],
+      "렉스턴": [
+        { name: "올 뉴 렉스턴 / 뉴 아레나", start: 2020, end: 2026, min: 3707, max: 5150, cc: 2157, pop: 0.98 },
+        { name: "G4 렉스턴", start: 2017, end: 2020, min: 3350, max: 4650, cc: 2157, pop: 0.97 }
+      ],
+      "코란도": [
+        { name: "뷰티풀 코란도", start: 2019, end: 2024, min: 2250, max: 3150, cc: 1497, pop: 0.97 },
+        { name: "코란도 C", start: 2011, end: 2019, min: 1980, max: 2850, cc: 1998, pop: 0.95 }
+      ]
+    }
+  },
+  "쉐보레": {
+    factor: 0.94,
+    models: {
+      "트랙스": [
+        { name: "트랙스 크로스오버", start: 2023, end: 2026, min: 2068, max: 2880, cc: 1199, pop: 1.01 },
+        { name: "더 뉴 트랙스", start: 2013, end: 2022, min: 1650, max: 2450, cc: 1362, pop: 0.98 }
+      ],
+      "트레일블레이저": [
+        { name: "트레일블레이저", start: 2020, end: 2026, min: 2150, max: 3350, cc: 1341, pop: 1.00 }
+      ],
+      "말리부": [
+        { name: "올 뉴 말리부 / 더 뉴 말리부", start: 2016, end: 2022, min: 2388, max: 3350, cc: 1490, pop: 0.97 },
+        { name: "말리부 1세대", start: 2011, end: 2016, min: 2180, max: 2980, cc: 1998, pop: 0.95 }
+      ],
+      "스파크": [
+        { name: "더 뉴 스파크 / 더 넥스트 스파크", start: 2015, end: 2022, min: 990, max: 1480, cc: 999, isCompact: true, pop: 0.99 }
+      ]
+    }
+  },
+  "BMW": {
+    factor: 0.88,
+    models: {
+      "5시리즈": [
+        { name: "5시리즈 8세대 (G60)", start: 2023, end: 2026, min: 6880, max: 9590, cc: 1998, pop: 1.03 },
+        { name: "5시리즈 7세대 (G30)", start: 2017, end: 2023, min: 6390, max: 9280, cc: 1998, pop: 1.02 },
+        { name: "5시리즈 6세대 (F10)", start: 2010, end: 2016, min: 6130, max: 8280, cc: 1995, pop: 0.99 }
+      ],
+      "3시리즈": [
+        { name: "3시리즈 7세대 (G20)", start: 2019, end: 2026, min: 5170, max: 7350, cc: 1998, pop: 1.02 },
+        { name: "3시리즈 6세대 (F30)", start: 2012, end: 2018, min: 4490, max: 5990, cc: 1995, pop: 0.99 }
+      ],
+      "X3 / X5": [
+        { name: "X3 3세대/4세대 (G01/G45)", start: 2017, end: 2026, min: 6580, max: 8950, cc: 1995, pop: 1.03 },
+        { name: "X5 4세대 (G05)", start: 2018, end: 2026, min: 9880, max: 13800, cc: 2993, pop: 1.01 },
+        { name: "X5 3세대 (F15)", start: 2013, end: 2018, min: 9150, max: 12500, cc: 2993, pop: 0.98 }
+      ]
+    }
+  },
+  "벤츠": {
+    factor: 0.87,
+    models: {
+      "E-클래스": [
+        { name: "E-Class 11세대 (W214)", start: 2024, end: 2026, min: 7390, max: 10800, cc: 1999, pop: 1.06 },
+        { name: "E-Class 10세대 (W213)", start: 2016, end: 2023, min: 6700, max: 10400, cc: 1991, pop: 1.04 },
+        { name: "E-Class 9세대 (W212)", start: 2009, end: 2016, min: 6090, max: 9800, cc: 2143, pop: 0.98 }
+      ],
+      "C-클래스": [
+        { name: "C-Class 5세대 (W206)", start: 2021, end: 2026, min: 6120, max: 7500, cc: 1999, pop: 1.00 },
+        { name: "C-Class 4세대 (W205)", start: 2014, end: 2021, min: 4970, max: 6500, cc: 1991, pop: 0.99 }
+      ],
+      "S-클래스": [
+        { name: "S-Class 7세대 (W223)", start: 2020, end: 2026, min: 14060, max: 23800, cc: 2999, pop: 0.95 },
+        { name: "S-Class 6세대 (W222)", start: 2013, end: 2020, min: 13200, max: 21500, cc: 2996, pop: 0.93 }
+      ],
+      "GLC": [
+        { name: "GLC 2세대 (X254)", start: 2022, end: 2026, min: 7680, max: 8790, cc: 1999, pop: 1.02 },
+        { name: "GLC 1세대 (X253)", start: 2015, end: 2022, min: 6450, max: 7950, cc: 1991, pop: 1.00 }
+      ]
+    }
+  },
+  "아우디": {
+    factor: 0.86,
+    models: {
+      "A6": [
+        { name: "A6 8세대 (C8)", start: 2019, end: 2026, min: 6850, max: 8950, cc: 1984, pop: 1.00 },
+        { name: "A6 7세대 (C7)", start: 2011, end: 2018, min: 5850, max: 7850, cc: 1968, pop: 0.97 }
+      ],
+      "A4": [
+        { name: "A4 5세대 (B9)", start: 2016, end: 2025, min: 4950, max: 6250, cc: 1984, pop: 0.98 }
+      ],
+      "Q5": [
+        { name: "Q5 2세대 (FY)", start: 2017, end: 2025, min: 6450, max: 7850, cc: 1968, pop: 1.00 }
+      ]
+    }
+  },
+  "폭스바겐": {
+    factor: 0.88,
+    models: {
+      "티구안": [
+        { name: "티구안 2세대 / 올스페이스", start: 2016, end: 2024, min: 3850, max: 4850, cc: 1968, pop: 1.02 }
+      ],
+      "골프": [
+        { name: "골프 8세대", start: 2020, end: 2026, min: 3650, max: 4250, cc: 1968, pop: 1.02 },
+        { name: "골프 7세대", start: 2012, end: 2020, min: 2980, max: 3850, cc: 1968, pop: 1.00 }
+      ],
+      "아테온": [
+        { name: "아테온", start: 2018, end: 2024, min: 5250, max: 6150, cc: 1968, pop: 0.98 }
+      ]
+    }
+  },
+  "볼보": {
+    factor: 0.90,
+    models: {
+      "XC60": [
+        { name: "XC60 2세대", start: 2017, end: 2026, min: 6290, max: 8590, cc: 1969, pop: 1.04 }
+      ],
+      "XC90": [
+        { name: "XC90 2세대", start: 2016, end: 2026, min: 8590, max: 11500, cc: 1969, pop: 1.01 }
+      ],
+      "S90": [
+        { name: "S90", start: 2016, end: 2026, min: 6150, max: 8750, cc: 1969, pop: 0.98 }
+      ]
+    }
+  },
+  "포르쉐": {
+    factor: 0.92,
+    models: {
+      "카이엔": [
+        { name: "카이엔 3세대 (PO536)", start: 2018, end: 2026, min: 11500, max: 16800, cc: 2995, pop: 1.05 }
+      ],
+      "파나메라": [
+        { name: "파나메라 2세대 / 3세대", start: 2016, end: 2026, min: 13800, max: 19500, cc: 2894, pop: 1.02 }
+      ],
+      "마칸": [
+        { name: "마칸", start: 2014, end: 2026, min: 8250, max: 10800, cc: 1984, pop: 1.02 }
+      ]
+    }
+  },
+  "테슬라": {
+    factor: 0.90,
+    models: {
+      "Model 3": [
+        { name: "Model 3 하이랜드", start: 2023, end: 2026, min: 5199, max: 6799, cc: 0, isEV: true, pop: 1.04 },
+        { name: "Model 3 초기형", start: 2019, end: 2023, min: 4999, max: 6434, cc: 0, isEV: true, pop: 1.02 }
+      ],
+      "Model Y": [
+        { name: "Model Y", start: 2021, end: 2026, min: 5299, max: 7899, cc: 0, isEV: true, pop: 1.05 }
+      ],
+      "Model X": [
+        { name: "Model X", start: 2018, end: 2026, min: 12875, max: 15315, cc: 0, isEV: true, pop: 0.95 }
+      ]
+    }
+  },
+  "렉서스": {
+    factor: 1.03,
+    models: {
+      "ES": [
+        { name: "ES300h 7세대 (XZ10)", start: 2018, end: 2026, min: 6190, max: 7160, cc: 2487, pop: 1.06 },
+        { name: "ES300h 6세대 (XV60)", start: 2012, end: 2018, min: 4950, max: 6370, cc: 2494, pop: 1.03 }
+      ]
+    }
+  },
+  "토요타": {
+    factor: 1.02,
+    models: {
+      "캠리": [
+        { name: "캠리 / 캠리 하이브리드", start: 2017, end: 2026, min: 3690, max: 4520, cc: 2487, pop: 1.04 }
+      ],
+      "RAV4": [
+        { name: "RAV4 하이브리드", start: 2019, end: 2026, min: 3890, max: 4580, cc: 2487, pop: 1.05 }
+      ]
+    }
+  },
+  "미니": {
+    factor: 0.88,
+    models: {
+      "미니 쿠퍼": [
+        { name: "미니 쿠퍼 3세대/4세대", start: 2014, end: 2026, min: 3250, max: 4850, cc: 1499, pop: 1.01 }
+      ],
+      "컨트리맨": [
+        { name: "컨트리맨 2세대", start: 2017, end: 2026, min: 3980, max: 5650, cc: 1995, pop: 1.01 }
+      ]
+    }
+  },
+  "랜드로버": {
+    factor: 0.82,
+    models: {
+      "레인지로버": [
+        { name: "레인지로버 4세대/5세대", start: 2012, end: 2026, min: 16500, max: 28500, cc: 2996, pop: 0.92 }
+      ],
+      "디스커버리": [
+        { name: "디스커버리 5", start: 2017, end: 2026, min: 8650, max: 12500, cc: 2996, pop: 0.94 }
+      ]
+    }
+  }
+};
+
+// ═════════════════════════════════════════════════════════════
+// 2. 대한민국 행정안전부 고시 자동차 시가표준액 법정 잔가율표
+// ═════════════════════════════════════════════════════════════
+const STATUTORY_RATES = [
+  0.792, // 0년차
+  0.628, // 1년 경과
+  0.498, // 2년 경과
+  0.394, // 3년 경과
+  0.312, // 4년 경과
+  0.247, // 5년 경과
+  0.196, // 6년 경과
+  0.155, // 7년 경과
+  0.123, // 8년 경과
+  0.097, // 9년 경과
+  0.100  // 10년 이상
+];
+
+// ═════════════════════════════════════════════════════════════
+// 3. 한국 중고차 시장 실거래 평균 잔존가치율 곡선
+// ═════════════════════════════════════════════════════════════
+const MARKET_BASE_RETENTION = [
+  0.88, 0.80, 0.72, 0.65, 0.58, 0.51, 0.45, 0.40, 0.35, 0.30, 0.25, 0.22, 0.20, 0.18, 0.16, 0.15
+];
+
+const FUEL_FACTOR = { gasoline: 1.0, diesel: 1.03, hybrid: 1.05, ev: 0.93, lpg: 0.95 };
+const ACCIDENT_FACTOR = { none: 1.0, minor: 0.95, moderate: 0.90, major: 0.80 };
+
+// ═══════════════════════════════════════════
+// 4. 드롭다운 연쇄 제어 (대분류 > 중분류 > 소분류 > 연식)
+// ═══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+  const brandSel = document.getElementById('brand');
+  for (const b in VEHICLE_HIERARCHY) {
+    const opt = document.createElement('option');
+    opt.value = b;
+    opt.textContent = b;
+    brandSel.appendChild(opt);
+  }
+  checkWelcomeModal();
+});
+
+function checkWelcomeModal() {
+  const hideUntil = localStorage.getItem('hideWelcomeModalUntil');
+  const now = new Date().getTime();
+  if (!hideUntil || now > parseInt(hideUntil)) {
+    setTimeout(() => {
+      document.getElementById('welcomeModal').style.display = 'flex';
+    }, 400);
+  }
+}
+
+function closeWelcomeModal() {
+  const chk = document.getElementById('chkDontShowToday');
+  if (chk && chk.checked) {
+    const expireTime = new Date().getTime() + 24 * 60 * 60 * 1000;
+    localStorage.setItem('hideWelcomeModalUntil', expireTime);
+  }
+  document.getElementById('welcomeModal').style.display = 'none';
+}
+
+// 1. 제조사 변경 시 -> 대표 차종(중분류) 채우기
+function onBrandChange() {
+  const brand = document.getElementById('brand').value;
+  const modelSel = document.getElementById('model');
+  const genSel = document.getElementById('generation');
+  const yearSel = document.getElementById('year');
+  const descEl = document.getElementById('genDesc');
+
+  modelSel.innerHTML = '<option value="">대표 차종 선택</option>';
+  genSel.innerHTML = '<option value="">대표 차종을 먼저 선택하세요</option>';
+  yearSel.innerHTML = '<option value="">세부 모델을 먼저 선택하세요</option>';
+  modelSel.disabled = true;
+  genSel.disabled = true;
+  yearSel.disabled = true;
+  descEl.textContent = '';
+  document.getElementById('newPrice').value = '';
+
+  if (!brand || !VEHICLE_HIERARCHY[brand]) return;
+
+  modelSel.disabled = false;
+  const models = VEHICLE_HIERARCHY[brand].models;
+  for (const m in models) {
+    const opt = document.createElement('option');
+    opt.value = m;
+    opt.textContent = m;
+    modelSel.appendChild(opt);
+  }
+}
+
+// 2. 대표 차종 변경 시 -> 세부 세대 모델(소분류) 채우기
+function onModelChange() {
+  const brand = document.getElementById('brand').value;
+  const model = document.getElementById('model').value;
+  const genSel = document.getElementById('generation');
+  const yearSel = document.getElementById('year');
+  const descEl = document.getElementById('genDesc');
+
+  genSel.innerHTML = '<option value="">세부 모델 / 세대 선택</option>';
+  yearSel.innerHTML = '<option value="">세부 모델을 먼저 선택하세요</option>';
+  genSel.disabled = true;
+  yearSel.disabled = true;
+  descEl.textContent = '';
+  document.getElementById('newPrice').value = '';
+
+  if (!brand || !model || !VEHICLE_HIERARCHY[brand].models[model]) return;
+
+  genSel.disabled = false;
+  const genList = VEHICLE_HIERARCHY[brand].models[model];
+  genList.forEach((g, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = `${g.name} (${g.start}~${g.end}년형)`;
+    genSel.appendChild(opt);
+  });
+}
+
+// 3. 세부 세대 모델 변경 시 -> 생산 연도(연식) 드롭다운 채우기 & 출고가 세팅
+function onGenerationChange() {
+  const brand = document.getElementById('brand').value;
+  const model = document.getElementById('model').value;
+  const genIdx = document.getElementById('generation').value;
+  const yearSel = document.getElementById('year');
+  const descEl = document.getElementById('genDesc');
+
+  yearSel.innerHTML = '<option value="">연식 선택</option>';
+  yearSel.disabled = true;
+  descEl.textContent = '';
+  document.getElementById('newPrice').value = '';
+
+  if (genIdx === "") return;
+
+  const g = VEHICLE_HIERARCHY[brand].models[model][genIdx];
+  yearSel.disabled = false;
+
+  // 해당 세대의 생산 연도만 연식 드롭다운에 추가
+  const curYear = new Date().getFullYear();
+  const maxEnd = Math.min(g.end, curYear);
+  for (let y = maxEnd; y >= g.start; y--) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y + '년식';
+    yearSel.appendChild(opt);
+  }
+
+  // 출고가 기본 세팅
+  const avgPrice = Math.round((g.min + g.max) / 2);
+  document.getElementById('newPrice').value = avgPrice;
+  descEl.textContent = `공식 출시 기간: ${g.start}~${g.end}년 | 신차 출고가 범위: ${g.min.toLocaleString()}만 ~ ${g.max.toLocaleString()}만원`;
+
+  if (g.isEV) {
+    document.getElementById('fuel').value = 'ev';
+  } else if (g.isCompact) {
+    document.getElementById('fuel').value = 'gasoline';
+  }
+}
+
+function onYearChange() {
+  // 연식 선택 완료
+}
+
+// ═════════════════════════════════════════════════════════════
+// 5. 정확한 시세 & 취등록세 계산 로직
+// ═════════════════════════════════════════════════════════════
+function calculate() {
+  const brand = document.getElementById('brand').value;
+  const model = document.getElementById('model').value;
+  const genIdx = document.getElementById('generation').value;
+  const year = parseInt(document.getElementById('year').value);
+  const mileage = parseInt(document.getElementById('mileage').value);
+  const fuel = document.getElementById('fuel').value;
+  const accident = document.getElementById('accident').value;
+  const newPrice = parseInt(document.getElementById('newPrice').value);
+
+  if (!brand) return alert('제조사를 선택해 주세요.');
+  if (!model) return alert('대표 차종을 선택해 주세요.');
+  if (genIdx === "") return alert('세부 모델/세대를 선택해 주세요.');
+  if (!year) return alert('연식을 선택해 주세요.');
+  if (!mileage && mileage !== 0) return alert('주행거리를 입력해 주세요.');
+  if (!newPrice) return alert('신차 출고가를 입력해 주세요.');
+
+  const curYear = new Date().getFullYear();
+  const age = Math.max(0, curYear - year);
+
+  const genData = VEHICLE_HIERARCHY[brand].models[model][genIdx];
+  const brandFactor = VEHICLE_HIERARCHY[brand].factor;
+  const popFactor = genData.pop || 1.0;
+  const fuelFactor = FUEL_FACTOR[fuel] || 1.0;
+  const accidentFactor = ACCIDENT_FACTOR[accident] || 1.0;
+
+  // 1. 행정안전부 법정 시가표준액
+  const statRate = (age < STATUTORY_RATES.length) ? STATUTORY_RATES[age] : 0.100;
+  const statutoryStandardPrice = Math.round(newPrice * statRate);
+
+  // 2. 주행거리 보정
+  const expectedMileage = age * 15000;
+  const mileageDiff = mileage - expectedMileage;
+  let mileageAdj = 1.0;
+  if (mileageDiff > 0) {
+    mileageAdj -= (mileageDiff / 10000) * 0.02;
+    if (mileage > 100000) mileageAdj -= 0.03;
+    if (mileage > 150000) mileageAdj -= 0.03;
+  } else {
+    mileageAdj += Math.abs(mileageDiff / 10000) * 0.015;
+  }
+  mileageAdj = Math.max(0.75, Math.min(1.15, mileageAdj));
+
+  // 3. 옵션 가산
+  let optionBonus = 0;
+  document.querySelectorAll('.options-grid input[type="checkbox"]').forEach(cb => {
+    if (cb.checked) optionBonus += parseFloat(cb.value);
+  });
+
+  // 4. 시장 실거래 잔존가치율 산출
+  const baseMarketRate = (age < MARKET_BASE_RETENTION.length) ? MARKET_BASE_RETENTION[age] : 0.15;
+  let marketRetention = (baseMarketRate * brandFactor * popFactor * fuelFactor * mileageAdj * accidentFactor) + optionBonus;
+  marketRetention = Math.max(0.10, Math.min(0.98, marketRetention));
+
+  // 3대 시세
+  const retailPrice = Math.round(newPrice * marketRetention);
+  const dealerPrice = Math.round(retailPrice * 0.885);
+  const directPrice = Math.round(retailPrice * 0.955);
+
+  // 5. 법정 세금 산출 (지방세법 제10조의2: 실거래가와 시가표준액 중 높은 금액 기준)
+  const taxBase = Math.max(retailPrice, statutoryStandardPrice);
+  const isCompact = genData.isCompact || false;
+  let rawTax = 0;
+  let taxDeduction = 0;
+  let taxNote = "";
+
+  if (isCompact) {
+    rawTax = taxBase * 0.04;
+    taxDeduction = Math.min(rawTax, 75);
+    taxNote = "경형 승용 4% 적용 (법정 75만원 전액 감면)";
+  } else if (fuel === 'ev') {
+    rawTax = taxBase * 0.07;
+    taxDeduction = Math.min(rawTax, 140);
+    taxNote = "친환경 전기차 (법정 140만원 감면)";
+  } else if (fuel === 'hybrid') {
+    rawTax = taxBase * 0.07;
+    taxDeduction = Math.min(rawTax, 40);
+    taxNote = "하이브리드 특례 (법정 40만원 감면)";
+  } else {
+    rawTax = taxBase * 0.07;
+    taxNote = "승용 일반 7% 과세표준 적용";
+  }
+
+  const finalAcquisitionTax = Math.max(0, Math.round(rawTax - taxDeduction));
+
+  // 공채 매입 할인 실부담액 (1,600cc 미만 및 경차 100% 면제)
+  let bondDiscount = 0;
+  let bondNote = "";
+  if (isCompact || (genData.cc > 0 && genData.cc < 1600)) {
+    bondDiscount = 0;
+    bondNote = "배기량 1,600cc 미만 법정 채권 면제 (0원)";
+  } else if (fuel === 'ev' || fuel === 'hybrid') {
+    bondDiscount = Math.round(retailPrice * 0.004);
+    bondNote = "친환경 채권 감면 적용 (실부담 약 0.4%)";
+  } else {
+    bondDiscount = Math.round(retailPrice * 0.012);
+    bondNote = "도시철도/지역개발채권 할인 매도 실부담";
+  }
+
+  const dealerAdminFee = 38;
+  const warrantyInsurance = Math.min(22, Math.max(4, Math.round(5 + (age * 1.5) + (mileage / 35000))));
+  const stampFee = 0.4;
+
+  const totalBuyTaxes = Math.round(finalAcquisitionTax + bondDiscount + dealerAdminFee + warrantyInsurance + stampFee);
+  const grandTotalCost = retailPrice + totalBuyTaxes;
+
+  // 15개년 차트 데이터
+  const yearlyData = [];
+  for (let i = 0; i <= 15; i++) {
+    const rStat = (i < STATUTORY_RATES.length) ? STATUTORY_RATES[i] : 0.100;
+    const rMktBase = (i < MARKET_BASE_RETENTION.length) ? MARKET_BASE_RETENTION[i] : 0.15;
+    let rMkt = rMktBase * brandFactor * popFactor * fuelFactor + (i === age ? optionBonus : 0);
+    rMkt = Math.max(0.10, Math.min(0.98, rMkt));
+    const pRetail = Math.round(newPrice * rMkt);
+    const pDealer = Math.round(pRetail * 0.885);
+    yearlyData.push({ year: i, statRate: rStat, mktRate: rMkt, retailPrice: pRetail, dealerPrice: pDealer });
+  }
+
+  showResults({
+    brand, model, genName: genData.name,
+    year, age, newPrice, mileage, fuel, accident, isCompact,
+    statRate, statutoryStandardPrice,
+    retailPrice, dealerPrice, directPrice,
+    marketRetention, optionBonus,
+    brandFactor, popFactor, fuelFactor, accidentFactor,
+    finalAcquisitionTax, rawTax, taxDeduction, taxNote,
+    bondDiscount, bondNote, dealerAdminFee, warrantyInsurance, stampFee,
+    totalBuyTaxes, grandTotalCost,
+    yearlyData
+  });
+}
+
+// ═══════════════════════════════════════════
+// 6. 결과 렌더링
+// ═══════════════════════════════════════════
+function showResults(r) {
+  const $ = id => document.getElementById(id);
+
+  $('resultCarName').textContent = `${r.year}년식 ${r.brand} ${r.model} [${r.genName}] · 주행거리 ${formatNum(r.mileage)}km`;
+
+  $('priceDealer').textContent = formatNum(r.dealerPrice) + '만원';
+  $('priceDirect').textContent = formatNum(r.directPrice) + '만원';
+  $('priceRetail').textContent = formatNum(r.retailPrice) + '만원';
+
+  $('statutoryRateTxt').textContent = `(${(r.statRate * 100).toFixed(1)}%)`;
+  $('statutoryStandardPrice').textContent = formatNum(r.statutoryStandardPrice) + '만원';
+
+  $('taxTotalSum').textContent = '+' + formatNum(r.totalBuyTaxes) + '만원';
+  $('taxGrandTotal').textContent = '총 구매 예산 ' + formatNum(r.grandTotalCost) + '만원';
+
+  const taxBody = $('taxDetailBody');
+  taxBody.innerHTML = '';
+  const taxRows = [
+    ['1. 자동차 취득세', formatNum(r.finalAcquisitionTax) + '만원', `${r.taxNote} (산출세액: ${formatNum(r.rawTax)}만 / 법정감면: -${formatNum(r.taxDeduction)}만)`],
+    ['2. 지자체 공채 채권', r.bondDiscount === 0 ? '0원 (면제)' : formatNum(r.bondDiscount) + '만원', r.bondNote],
+    ['3. 매매상사 매도비', formatNum(r.dealerAdminFee) + '만원', '단지 주차관리 및 상사 입고 법정 관리비용 (자동차관리법)'],
+    ['4. 성능점검 책임보험료', formatNum(r.warrantyInsurance) + '만원', `30일/2,000km 법정 보증책임보험 (차령 ${r.age}년·주행거리 반영)`],
+    ['5. 등록 인지/증지대', '약 4,000원', '정부 양도증명서 인지세 3,000원 + 번호판 등록 증지대']
+  ];
+  taxRows.forEach(([name, cost, desc]) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><strong>${name}</strong></td><td class="num" style="color:#2563eb;font-weight:700;">${cost}</td><td class="num">${desc}</td>`;
+    taxBody.appendChild(tr);
+  });
+
+  const taxTotalTr = document.createElement('tr');
+  taxTotalTr.className = 'highlight';
+  taxTotalTr.innerHTML = `<td><strong>부대비용 총합계</strong></td><td class="num"><strong>${formatNum(r.totalBuyTaxes)}만원</strong></td><td class="num"><strong>차량가의 약 ${(r.totalBuyTaxes / r.retailPrice * 100).toFixed(1)}%</strong></td>`;
+  taxBody.appendChild(taxTotalTr);
+
+  let benefitMsg = "일반 승용 차량 기준 지방세법 7% 취득세율이 적용되었습니다.";
+  if (r.taxDeduction > 0) {
+    benefitMsg = `🎉 축하합니다! ${r.fuel === 'ev' ? '전기차 특례(140만)' : (r.fuel === 'hybrid' ? '하이브리드 특례(40만)' : '경차 감면(75만)')}로 취득세 ${formatNum(r.taxDeduction)}만원 절세 혜택이 적용되었습니다.`;
+  }
+  $('taxBenefitText').textContent = benefitMsg;
+
+  // 딥링크
+  const searchQuery = encodeURIComponent(`${r.brand} ${r.model}`);
+  const searchYearQuery = encodeURIComponent(`${r.year}년식 ${r.brand} ${r.model} 중고차 시세`);
+  $('linkEncar').href = `https://m.encar.com/ca/carsearch.do?q=${searchQuery}`;
+  $('linkKB').href = `https://www.kbchachacha.com/public/search/list.empty?keyword=${searchQuery}`;
+  $('linkKCar').href = `https://www.kcar.com/bc/search?wr_search_word=${searchQuery}`;
+  $('linkNaver').href = `https://search.naver.com/search.naver?query=${searchYearQuery}`;
+
+  // 상세 보정 내역
+  const tbody = $('detailBody');
+  tbody.innerHTML = '';
+  const rows = [
+    ['신차 출고가', formatNum(r.newPrice) + '만원', '기준 입력값 (자동차등록증 ⑤번)'],
+    ['출시 세대 모델', r.genName, `${r.year}년식 정규 생산 세대`],
+    ['행안부 법정 잔가율', (r.statRate * 100).toFixed(1) + '%', `경과 ${r.age}년차 법정 고시 기준`],
+    ['시장 실거래 잔가율', (r.marketRetention * 100).toFixed(1) + '%', '엔카·K-Car 시장 빅데이터 반영'],
+    ['브랜드 방어율', (r.brandFactor * 100).toFixed(0) + '%', r.brandFactor >= 1.0 ? '국산 대중 브랜드' : '수입/럭셔리 (감가율 높음)'],
+    ['모델 시장 선호도', (r.popFactor * 100).toFixed(0) + '%', r.popFactor >= 1.03 ? '중고차 베스트셀링' : '보통'],
+    ['사고 이력 보정', (r.accidentFactor * 100).toFixed(0) + '%', {none:'완전 무사고',minor:'단순 교환 (-5%)',moderate:'사고 (-10%)',major:'중대 사고 (-20%)'}[r.accident]],
+    ['옵션/상태 가산', '+' + (r.optionBonus * 100).toFixed(1) + '%', r.optionBonus > 0 ? '체크된 선호 옵션 반영' : '기본 상태']
+  ];
+  rows.forEach(([label, value, desc]) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${label}</td><td class="num">${value}</td><td class="num">${desc}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  // 연식별 잔존가치표
+  const yrBody = $('yearlyBody');
+  yrBody.innerHTML = '';
+  r.yearlyData.forEach((d, i) => {
+    const tr = document.createElement('tr');
+    const isNow = (i === r.age);
+    if (isNow) tr.className = 'highlight';
+    const prevPrice = i > 0 ? r.yearlyData[i-1].retailPrice : d.retailPrice;
+    const annualDep = i > 0 ? prevPrice - d.retailPrice : 0;
+    tr.innerHTML = `
+      <td>${i === 0 ? '신차' : i + '년차'}${isNow ? ' (현재)' : ''}</td>
+      <td class="num">${(d.statRate * 100).toFixed(1)}%</td>
+      <td class="num" style="color:#2563eb;font-weight:600;">${(d.mktRate * 100).toFixed(1)}%</td>
+      <td class="num">${formatNum(d.retailPrice)}만원</td>
+      <td class="num">${formatNum(d.dealerPrice)}만원</td>
+      <td class="num">${i === 0 ? '-' : '-' + formatNum(annualDep) + '만원'}</td>
+    `;
+    yrBody.appendChild(tr);
+  });
+
+  // 연간 유지비
+  const maintBody = $('maintBody');
+  maintBody.innerHTML = '';
+  const isEV = r.fuel === 'ev';
+  const fuelCostMap = { gasoline: '약 150~200만원', diesel: '약 120~170만원', hybrid: '약 80~120만원', ev: '약 30~50만원 (충전비)', lpg: '약 80~120만원' };
+  const maintItems = [
+    ['⛽ 예상 연간 연료비', fuelCostMap[r.fuel] || '약 150만원', '연 15,000km 주행 기준'],
+    ['🔧 소모품 및 정비 비용', isEV ? '약 20~40만원' : (r.age > 5 ? '약 80~140만원' : '약 40~80만원'), isEV ? '타이어·필터 등' : '엔진오일·패드 등'],
+    ['🛡️ 자동차 종합보험료', r.newPrice > 5000 ? '약 100~180만원' : '약 60~120만원', '차종 및 무사고 경력별 상이'],
+    ['📋 연간 자동차세', formatNum(calcAutoTax(r)) + '만원', r.age >= 3 ? getAutoTaxDiscount(r.age) : '신차 기준 전액'],
+  ];
+  maintItems.forEach(([label, value, desc]) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${label}</td><td class="num">${value}</td><td class="num">${desc}</td>`;
+    maintBody.appendChild(tr);
+  });
+
+  drawChart(r);
+
+  $('results').classList.add('show');
+  setTimeout(() => {
+    $('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+// ═══════════════════════════════════════════
+// 7. 차트 그리기
+// ═══════════════════════════════════════════
+function drawChart(r) {
+  const canvas = document.getElementById('depChart');
+  const container = canvas.parentElement;
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width = container.offsetWidth * dpr;
+  canvas.height = container.offsetHeight * dpr;
+  canvas.style.width = container.offsetWidth + 'px';
+  canvas.style.height = container.offsetHeight + 'px';
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const W = container.offsetWidth;
+  const H = container.offsetHeight;
+  const pad = { top: 30, right: 30, bottom: 40, left: 65 };
+  const chartW = W - pad.left - pad.right;
+  const chartH = H - pad.top - pad.bottom;
+
+  ctx.fillStyle = '#fafbfc';
+  ctx.fillRect(0, 0, W, H);
+
+  const data = r.yearlyData;
+  const maxPrice = r.newPrice;
+
+  ctx.strokeStyle = '#e8ecf0';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.top + (chartH / 5) * i;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(W - pad.right, y);
+    ctx.stroke();
+
+    ctx.fillStyle = '#64748b';
+    ctx.font = '11px Noto Sans KR, sans-serif';
+    ctx.textAlign = 'right';
+    const val = maxPrice * (1 - i / 5);
+    ctx.fillText(formatNum(Math.round(val)) + '만', pad.left - 8, y + 4);
+  }
+
+  ctx.textAlign = 'center';
+  data.forEach((d, i) => {
+    if (i % 2 === 0 || i === r.age) {
+      const x = pad.left + (chartW / (data.length - 1)) * i;
+      ctx.fillText(d.year + '년', x, H - pad.bottom + 20);
+    }
+  });
+
+  // 소매가 실선 (파랑)
+  ctx.beginPath();
+  data.forEach((d, i) => {
+    const x = pad.left + (chartW / (data.length - 1)) * i;
+    const y = pad.top + chartH * (1 - d.retailPrice / maxPrice);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.strokeStyle = '#2563eb';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // 딜러매입가 점선 (주황)
+  ctx.beginPath();
+  data.forEach((d, i) => {
+    const x = pad.left + (chartW / (data.length - 1)) * i;
+    const y = pad.top + chartH * (1 - d.dealerPrice / maxPrice);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.setLineDash([4, 4]);
+  ctx.strokeStyle = '#d97706';
+  ctx.lineWidth = 1.8;
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // 현재 포인트
+  if (r.age < data.length) {
+    const cx = pad.left + (chartW / (data.length - 1)) * r.age;
+    const cy = pad.top + chartH * (1 - r.retailPrice / maxPrice);
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+    ctx.fillStyle = '#dc2626';
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = '#dc2626';
+    ctx.font = 'bold 12px Noto Sans KR, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('현재 ' + formatNum(r.retailPrice) + '만', cx, cy - 12);
+  }
+}
+
+// ═══════════════════════════════════════════
+// 8. 유틸리티 & 정책 모달
+// ═══════════════════════════════════════════
+function formatNum(n) {
+  if (n === undefined || n === null || isNaN(n)) return '0';
+  return Math.round(n).toLocaleString('ko-KR');
+}
+
+function calcAutoTax(r) {
+  let baseTax = (r.fuel === 'ev') ? 13 : (r.newPrice < 2000 ? 25 : (r.newPrice < 3500 ? 40 : (r.newPrice < 5000 ? 55 : 75)));
+  const discounts = { 3: 0.95, 4: 0.90, 5: 0.85, 6: 0.80, 7: 0.75, 8: 0.70, 9: 0.65, 10: 0.60, 11: 0.55, 12: 0.50 };
+  const ageKey = Math.min(r.age, 12);
+  if (ageKey >= 3) baseTax *= (discounts[ageKey] || 0.50);
+  return Math.round(baseTax);
+}
+
+function getAutoTaxDiscount(age) {
+  if (age < 3) return '신차 기준 (감면 없음)';
+  const pct = Math.min((age - 2) * 5, 50);
+  return `${pct}% 법정 감면 적용`;
+}
+
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+
+function resetCalc() {
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('brand').value = '';
+  document.getElementById('model').innerHTML = '<option value="">제조사를 먼저 선택하세요</option>';
+  document.getElementById('model').disabled = true;
+  document.getElementById('generation').innerHTML = '<option value="">대표 차종을 먼저 선택하세요</option>';
+  document.getElementById('generation').disabled = true;
+  document.getElementById('year').innerHTML = '<option value="">세부 모델을 먼저 선택하세요</option>';
+  document.getElementById('year').disabled = true;
+  document.getElementById('genDesc').textContent = '';
+  document.getElementById('mileage').value = '';
+  document.getElementById('fuel').value = 'gasoline';
+  document.getElementById('accident').value = 'none';
+  document.getElementById('newPrice').value = '';
+  document.querySelectorAll('.options-grid input[type="checkbox"]').forEach(cb => cb.checked = false);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function shareResult() {
+  const carName = document.getElementById('resultCarName').textContent;
+  const retail = document.getElementById('priceRetail').textContent;
+  const tax = document.getElementById('taxTotalSum').textContent;
+  const total = document.getElementById('taxGrandTotal').textContent;
+  const text = `🚗 [스마트카] 중고차 시세 & 살 때 세금 견적\n${carName}\n- 예상 시세: ${retail}\n- 취등록세/부대비용: ${tax}\n- ${total}\n\n무료 조회 → ${location.href}`;
+
+  if (navigator.share) {
+    navigator.share({ title: '중고차 시세 및 세금 견적서', text: text, url: location.href }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => alert('견적서가 클립보드에 복사되었습니다!')).catch(() => {});
+  } else {
+    prompt('아래 텍스트를 복사해 공유하세요:', text);
+  }
+}
+
+const POLICIES = {
+  privacy: `
+    <h3>개인정보처리방침</h3>
+    <p>본 사이트(스마트카 계산기)는 이용자의 개인정보를 소중히 다루며 관련 법령을 철저히 준수합니다.</p>
+    <p><strong>1. 수집 항목 및 목적</strong><br>회원가입 없이 모든 계산 기능을 무료 제공하며 주민번호 등 민감정보를 수집하지 않습니다.</p>
+    <p><strong>2. 구글 애드센스 쿠키(Cookie) 안내</strong><br>본 사이트는 Google을 비롯한 서드파티 업체의 맞춤형 광고 게재를 위해 쿠키를 활용할 수 있으며, 이용자는 브라우저 설정을 통해 쿠키 수집을 언제든 거부할 수 있습니다.</p>
+    <p><strong>3. 관리자 문의</strong><br>이메일: contact@yourdomain.com</p>
+  `,
+  terms: `
+    <h3>이용약관</h3>
+    <p><strong>제1조 (목적 및 성격)</strong><br>본 서비스는 대한민국 행정안전부 고시 자동차 시가표준액 및 지방세법에 근거하여 시세와 세금을 시뮬레이션하는 참고용 금융 도구입니다.</p>
+    <p><strong>제2조 (면책 조항)</strong><br>정확한 출고가(등록증 ⑤번)를 입력할 경우 법정 세액은 일치하나, 시장 실거래가는 상권 및 수급에 따라 미세한 차이가 발생할 수 있습니다.</p>
+  `,
+  about: `
+    <h3>운영자 정보</h3>
+    <p><strong>스마트카 계산기</strong><br>투명한 중고차 유통과 합리적인 취등록세 계산을 위해 행안부 잔가율 및 지방세법을 기반으로 개발된 무료 웹 도구입니다.</p>
+    <p>문의: contact@yourdomain.com</p>
+  `
+};
+
+function openPolicyModal(type) {
+  document.getElementById('policyContent').innerHTML = POLICIES[type] || '';
+  document.getElementById('policyModal').style.display = 'flex';
+}
+function closePolicyModal() {
+  document.getElementById('policyModal').style.display = 'none';
+}
+
+window.addEventListener('resize', () => {
+  if (document.getElementById('results').classList.contains('show')) {
+    document.querySelector('.btn-calculate').click();
+  }
+});
+</script>
+
+</body>
+</html>

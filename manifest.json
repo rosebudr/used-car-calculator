@@ -1,0 +1,9 @@
+{
+  "name": "스마트카 중고차 감가상각 & 세금 계산기",
+  "short_name": "스마트카",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f4f8",
+  "theme_color": "#1e3a5f",
+  "description": "국산차·수입차 전 차종 세대별 실거래 시세 및 법정 취등록세 무료 계산기"
+}
