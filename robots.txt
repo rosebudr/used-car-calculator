@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://used-car-calculator.vercel.app/sitemap.xml
+Sitemap: https://yourtools.co.kr/sitemap.xml
