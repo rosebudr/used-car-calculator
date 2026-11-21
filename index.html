@@ -688,6 +688,34 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; opa
 .policy-modal-content h3 { font-size: 18px; margin-bottom: 12px; color: var(--primary); }
 .policy-modal-content p, .policy-modal-content li { font-size: 13px; color: #475569; line-height: 1.7; margin-bottom: 8px; }
 
+/* ─── 좌우 측면 고정 날개 광고 (스카이스크래퍼 - 1200px 이상 PC 대화면) ─── */
+.side-banner-rail {
+  position: fixed;
+  top: 100px;
+  width: 160px;
+  z-index: 100;
+  display: none;
+}
+.side-banner-left {
+  left: calc(50% - 410px - 180px);
+}
+.side-banner-right {
+  right: calc(50% - 410px - 180px);
+}
+@media (min-width: 1200px) {
+  .side-banner-rail {
+    display: block;
+  }
+}
+.side-banner-box {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 4px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
 @media print {
   .top-nav, header, .ad-zone, .btn-calculate, .action-buttons, footer, .content-section, .cross-check-card, .modal-overlay { display: none !important; }
   #results { display: block !important; }
@@ -697,6 +725,32 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; opa
 </head>
 
 <body>
+
+<!-- ─── 좌측 고정 사이드 배너 (1200px 이상 PC 대화면) ─── -->
+<aside class="side-banner-rail side-banner-left" aria-label="좌측 사이드 광고">
+  <div class="side-banner-box">
+    <span class="ad-tag" style="display:block;margin-bottom:6px;font-size:11px;">광고 (추천 금융)</span>
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:160px;height:600px"
+         data-ad-client="ca-pub-4261136816135278"
+         data-ad-slot="1111111111"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div style="font-size:11px;color:#64748b;margin-top:6px;line-height:1.4;">중고차 전액할부<br>최저금리 실시간 비교</div>
+  </div>
+</aside>
+
+<!-- ─── 우측 고정 사이드 배너 (1200px 이상 PC 대화면) ─── -->
+<aside class="side-banner-rail side-banner-right" aria-label="우측 사이드 광고">
+  <div class="side-banner-box">
+    <span class="ad-tag" style="display:block;margin-bottom:6px;font-size:11px;">광고 (추천 보험)</span>
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:160px;height:600px"
+         data-ad-client="ca-pub-4261136816135278"
+         data-ad-slot="9999999999"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div style="font-size:11px;color:#64748b;margin-top:6px;line-height:1.4;">다이렉트 자동차보험<br>1분 다이렉트 견적</div>
+  </div>
+</aside>
 
 <!-- ─── 0. 첫 접속 팝업 배너 (광고 포함) ─── -->
 <div id="welcomeModal" class="modal-overlay" style="display:none;">
@@ -1000,7 +1054,7 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; opa
       </div>
     </div>
     <div class="chart-container">
-      <canvas id="depChart"></canvas>
+      <div id="chartSvgWrapper" style="width:100%;height:100%;min-height:280px;"></div>
     </div>
   </div>
 
@@ -1164,10 +1218,10 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; opa
   <div class="disclaimer">
     ⚠️ 본 계산기는 행정안전부 고시 자동차 시가표준액 산정 잔가율표 및 지방세법, 지자체 조례에 따라 법정 산식을 적용한 참고용 금융 도구입니다. 정확한 차량 출고가격(자동차등록증 ⑤번)을 입력하실 경우 법정 세액을 더욱 정확하게 확인하실 수 있습니다.
   </div>
-  <p>© 2025 스마트카 계산기 | 
+  <p>© 2025 스마트카 계산기 | 문의: <a href="mailto:aringding@naver.com" style="color:#60a5fa;">aringding@naver.com</a> | 
     <a onclick="openPolicyModal('privacy')">개인정보처리방침</a> · 
     <a onclick="openPolicyModal('terms')">이용약관</a> · 
-    <a onclick="openPolicyModal('about')">운영자 정보 및 문의</a>
+    <a onclick="openPolicyModal('about')">운영자 정보</a>
   </p>
 </footer>
 
@@ -1944,109 +1998,102 @@ function showResults(r) {
 }
 
 // ═══════════════════════════════════════════
-// 7. 차트 그리기
+// 7. 차트 그리기 (반응형 벡터 SVG)
 // ═══════════════════════════════════════════
 function drawChart(r) {
   if (!r) r = window.lastCalcResult;
   if (!r) return;
-  const canvas = document.getElementById('depChart');
-  if (!canvas) return;
-  const container = canvas.parentElement;
+  const container = document.getElementById('chartSvgWrapper');
   if (!container) return;
 
-  const dpr = window.devicePixelRatio || 1;
-  const W = container.offsetWidth || 700;
-  const H = container.offsetHeight || 280;
-
-  if (W <= 0 || H <= 0) return;
-
-  canvas.width = W * dpr;
-  canvas.height = H * dpr;
-  canvas.style.width = W + 'px';
-  canvas.style.height = H + 'px';
-
-  const ctx = canvas.getContext('2d');
-  ctx.resetTransform();
-  ctx.scale(dpr, dpr);
-
+  const data = r.yearlyData;
+  if (!data || !data.length) return;
+  const maxPrice = r.newPrice || 3500;
+  const W = 760;
+  const H = 280;
   const pad = { top: 30, right: 30, bottom: 40, left: 65 };
   const chartW = W - pad.left - pad.right;
   const chartH = H - pad.top - pad.bottom;
 
-  ctx.fillStyle = '#fafbfc';
-  ctx.fillRect(0, 0, W, H);
-
-  const data = r.yearlyData;
-  const maxPrice = r.newPrice;
-
-  ctx.strokeStyle = '#e8ecf0';
-  ctx.lineWidth = 1;
+  let gridLines = '';
   for (let i = 0; i <= 5; i++) {
     const y = pad.top + (chartH / 5) * i;
-    ctx.beginPath();
-    ctx.moveTo(pad.left, y);
-    ctx.lineTo(W - pad.right, y);
-    ctx.stroke();
-
-    ctx.fillStyle = '#64748b';
-    ctx.font = '11px Noto Sans KR, sans-serif';
-    ctx.textAlign = 'right';
-    const val = maxPrice * (1 - i / 5);
-    ctx.fillText(formatNum(Math.round(val)) + '만', pad.left - 8, y + 4);
+    const val = Math.round(maxPrice * (1 - i / 5));
+    gridLines += `
+      <line x1="${pad.left}" y1="${y}" x2="${W - pad.right}" y2="${y}" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3" />
+      <text x="${pad.left - 8}" y="${y + 4}" fill="#64748b" font-size="11" font-family="Noto Sans KR, sans-serif" text-anchor="end">${formatNum(val)}만</text>
+    `;
   }
 
-  ctx.textAlign = 'center';
+  let xLabels = '';
   data.forEach((d, i) => {
     if (i % 2 === 0 || i === r.age) {
       const x = pad.left + (chartW / (data.length - 1)) * i;
-      ctx.fillText(d.year + '년', x, H - pad.bottom + 20);
+      const isNow = (i === r.age);
+      xLabels += `
+        <text x="${x}" y="${H - pad.bottom + 22}" fill="${isNow ? '#dc2626' : '#64748b'}" font-size="${isNow ? '12' : '11'}" font-weight="${isNow ? 'bold' : 'normal'}" font-family="Noto Sans KR, sans-serif" text-anchor="middle">${d.year}년</text>
+      `;
     }
   });
 
-  // 소매가 실선 (파랑)
-  ctx.beginPath();
-  data.forEach((d, i) => {
+  const retailPoints = data.map((d, i) => {
     const x = pad.left + (chartW / (data.length - 1)) * i;
     const y = pad.top + chartH * (1 - d.retailPrice / maxPrice);
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
+    return { x, y, price: d.retailPrice, year: d.year };
   });
-  ctx.strokeStyle = '#2563eb';
-  ctx.lineWidth = 2.5;
-  ctx.stroke();
 
-  // 딜러매입가 점선 (주황)
-  ctx.beginPath();
-  data.forEach((d, i) => {
+  const dealerPoints = data.map((d, i) => {
     const x = pad.left + (chartW / (data.length - 1)) * i;
     const y = pad.top + chartH * (1 - d.dealerPrice / maxPrice);
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
+    return { x, y, price: d.dealerPrice, year: d.year };
   });
-  ctx.setLineDash([4, 4]);
-  ctx.strokeStyle = '#d97706';
-  ctx.lineWidth = 1.8;
-  ctx.stroke();
-  ctx.setLineDash([]);
 
-  // 현재 포인트
-  if (r.age < data.length) {
-    const cx = pad.left + (chartW / (data.length - 1)) * r.age;
-    const cy = pad.top + chartH * (1 - r.retailPrice / maxPrice);
+  const retailPathD = retailPoints.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
+  const dealerPathD = dealerPoints.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
+  const areaPathD = `${retailPathD} L ${retailPoints[retailPoints.length - 1].x.toFixed(1)} ${(pad.top + chartH).toFixed(1)} L ${retailPoints[0].x.toFixed(1)} ${(pad.top + chartH).toFixed(1)} Z`;
 
-    ctx.beginPath();
-    ctx.arc(cx, cy, 6, 0, Math.PI * 2);
-    ctx.fillStyle = '#dc2626';
-    ctx.fill();
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    ctx.fillStyle = '#dc2626';
-    ctx.font = 'bold 12px Noto Sans KR, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('현재 ' + formatNum(r.retailPrice) + '만', cx, cy - 12);
+  let curHighlight = '';
+  if (r.age < retailPoints.length) {
+    const cp = retailPoints[r.age];
+    curHighlight = `
+      <line x1="${cp.x.toFixed(1)}" y1="${pad.top}" x2="${cp.x.toFixed(1)}" y2="${pad.top + chartH}" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.6" />
+      <circle cx="${cp.x.toFixed(1)}" cy="${cp.y.toFixed(1)}" r="7" fill="#dc2626" stroke="#ffffff" stroke-width="2.5" />
+      <g transform="translate(${cp.x.toFixed(1)}, ${(cp.y - 12).toFixed(1)})">
+        <rect x="-44" y="-22" width="88" height="20" rx="4" fill="#dc2626" />
+        <polygon points="-4,-2 4,-2 0,3" fill="#dc2626" />
+        <text x="0" y="-8" fill="#ffffff" font-size="11" font-weight="bold" font-family="Noto Sans KR, sans-serif" text-anchor="middle">현재 ${formatNum(r.retailPrice)}만</text>
+      </g>
+    `;
   }
+
+  let dots = '';
+  retailPoints.forEach((p) => {
+    dots += `
+      <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.5" fill="#2563eb" opacity="0.85">
+        <title>${p.year}년차 소매시세: ${formatNum(p.price)}만원</title>
+      </circle>
+    `;
+  });
+
+  const svg = `
+    <svg viewBox="0 0 ${W} ${H}" width="100%" height="100%" preserveAspectRatio="none" style="display:block;border-radius:8px;background:#f8fafc;border:1px solid #e2e8f0;">
+      <defs>
+        <linearGradient id="retailGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2563eb" stop-opacity="0.22" />
+          <stop offset="100%" stop-color="#2563eb" stop-opacity="0.0" />
+        </linearGradient>
+      </defs>
+      ${gridLines}
+      ${xLabels}
+      <path d="${areaPathD}" fill="url(#retailGrad)" />
+      <path d="${retailPathD}" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="${dealerPathD}" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="5,5" stroke-linecap="round" stroke-linejoin="round" />
+      ${dots}
+      ${curHighlight}
+    </svg>
+  `;
+
+  container.innerHTML = svg;
 }
 
 // ═══════════════════════════════════════════
@@ -2113,7 +2160,7 @@ const POLICIES = {
     <p>본 사이트(스마트카 계산기)는 이용자의 개인정보를 소중히 다루며 관련 법령을 철저히 준수합니다.</p>
     <p><strong>1. 수집 항목 및 목적</strong><br>회원가입 없이 모든 계산 기능을 무료 제공하며 주민번호 등 민감정보를 수집하지 않습니다.</p>
     <p><strong>2. 구글 애드센스 쿠키(Cookie) 안내</strong><br>본 사이트는 Google을 비롯한 서드파티 업체의 맞춤형 광고 게재를 위해 쿠키를 활용할 수 있으며, 이용자는 브라우저 설정을 통해 쿠키 수집을 언제든 거부할 수 있습니다.</p>
-    <p><strong>3. 관리자 문의</strong><br>이메일: contact@yourtools.co.kr</p>
+    <p><strong>3. 관리자 문의</strong><br>이메일: aringding@naver.com</p>
   `,
   terms: `
     <h3>이용약관</h3>
@@ -2123,7 +2170,7 @@ const POLICIES = {
   about: `
     <h3>운영자 정보</h3>
     <p><strong>스마트카 계산기 (yourtools.co.kr)</strong><br>투명한 중고차 유통과 합리적인 취등록세 계산을 위해 행안부 잔가율 및 지방세법을 기반으로 개발된 무료 웹 도구입니다.</p>
-    <p>문의: contact@yourtools.co.kr</p>
+    <p>문의: aringding@naver.com</p>
   `
 };
 
