@@ -991,7 +991,14 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; opa
 
   <!-- 15개년 가치 변화 차트 -->
   <div class="detail-card">
-    <h3>📈 15개년 감가상각 가치 곡선 (소매 vs 딜러매입)</h3>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+      <h3 style="margin:0;">📈 15개년 감가상각 가치 곡선 (소매 vs 딜러매입)</h3>
+      <div style="font-size:12px;display:flex;gap:14px;align-items:center;color:#475569;font-weight:600;">
+        <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:16px;height:3px;background:#2563eb;border-radius:2px;"></span> 살 때 (소매가)</span>
+        <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:16px;height:0;border-top:2px dashed #d97706;"></span> 팔 때 (딜러매입)</span>
+        <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#dc2626;"></span> 현재 연식</span>
+      </div>
+    </div>
     <div class="chart-container">
       <canvas id="depChart"></canvas>
     </div>
@@ -1921,10 +1928,17 @@ function showResults(r) {
     maintBody.appendChild(tr);
   });
 
-  drawChart(r);
-
+  // 결과 영역 먼저 표시 (display: block으로 전환되어 캔버스 크기 측정 가능)
   $('results').classList.add('show');
+  window.lastCalcResult = r;
+
+  // DOM 렌더링 즉시 차트 그리기
+  requestAnimationFrame(() => {
+    drawChart(r);
+  });
+  // 애니메이션 정착 후 정확한 크기로 재보정
   setTimeout(() => {
+    drawChart(r);
     $('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 100);
 }
@@ -1933,20 +1947,28 @@ function showResults(r) {
 // 7. 차트 그리기
 // ═══════════════════════════════════════════
 function drawChart(r) {
+  if (!r) r = window.lastCalcResult;
+  if (!r) return;
   const canvas = document.getElementById('depChart');
+  if (!canvas) return;
   const container = canvas.parentElement;
-  const dpr = window.devicePixelRatio || 1;
+  if (!container) return;
 
-  canvas.width = container.offsetWidth * dpr;
-  canvas.height = container.offsetHeight * dpr;
-  canvas.style.width = container.offsetWidth + 'px';
-  canvas.style.height = container.offsetHeight + 'px';
+  const dpr = window.devicePixelRatio || 1;
+  const W = container.offsetWidth || 700;
+  const H = container.offsetHeight || 280;
+
+  if (W <= 0 || H <= 0) return;
+
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
 
   const ctx = canvas.getContext('2d');
+  ctx.resetTransform();
   ctx.scale(dpr, dpr);
 
-  const W = container.offsetWidth;
-  const H = container.offsetHeight;
   const pad = { top: 30, right: 30, bottom: 40, left: 65 };
   const chartW = W - pad.left - pad.right;
   const chartH = H - pad.top - pad.bottom;
@@ -2091,7 +2113,7 @@ const POLICIES = {
     <p>본 사이트(스마트카 계산기)는 이용자의 개인정보를 소중히 다루며 관련 법령을 철저히 준수합니다.</p>
     <p><strong>1. 수집 항목 및 목적</strong><br>회원가입 없이 모든 계산 기능을 무료 제공하며 주민번호 등 민감정보를 수집하지 않습니다.</p>
     <p><strong>2. 구글 애드센스 쿠키(Cookie) 안내</strong><br>본 사이트는 Google을 비롯한 서드파티 업체의 맞춤형 광고 게재를 위해 쿠키를 활용할 수 있으며, 이용자는 브라우저 설정을 통해 쿠키 수집을 언제든 거부할 수 있습니다.</p>
-    <p><strong>3. 관리자 문의</strong><br>이메일: contact@yourdomain.com</p>
+    <p><strong>3. 관리자 문의</strong><br>이메일: contact@yourtools.co.kr</p>
   `,
   terms: `
     <h3>이용약관</h3>
@@ -2100,8 +2122,8 @@ const POLICIES = {
   `,
   about: `
     <h3>운영자 정보</h3>
-    <p><strong>스마트카 계산기</strong><br>투명한 중고차 유통과 합리적인 취등록세 계산을 위해 행안부 잔가율 및 지방세법을 기반으로 개발된 무료 웹 도구입니다.</p>
-    <p>문의: contact@yourdomain.com</p>
+    <p><strong>스마트카 계산기 (yourtools.co.kr)</strong><br>투명한 중고차 유통과 합리적인 취등록세 계산을 위해 행안부 잔가율 및 지방세법을 기반으로 개발된 무료 웹 도구입니다.</p>
+    <p>문의: contact@yourtools.co.kr</p>
   `
 };
 
@@ -2114,8 +2136,8 @@ function closePolicyModal() {
 }
 
 window.addEventListener('resize', () => {
-  if (document.getElementById('results').classList.contains('show')) {
-    document.querySelector('.btn-calculate').click();
+  if (document.getElementById('results').classList.contains('show') && window.lastCalcResult) {
+    drawChart(window.lastCalcResult);
   }
 });
 </script>
