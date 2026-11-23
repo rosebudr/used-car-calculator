@@ -2484,14 +2484,13 @@ function showResults(r) {
   window.lastCalcResult = r;
 
   // DOM 렌더링 즉시 차트 그리기
-  requestAnimationFrame(() => {
-    drawChart(r);
-  });
-  // 애니메이션 정착 후 정확한 크기로 재보정
+  drawChart(r);
   setTimeout(() => {
     drawChart(r);
-    $('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 100);
+    try {
+      $('results').scrollIntoView({ behavior: 'auto', block: 'start' });
+    } catch(e) {}
+  }, 50);
 }
 
 // ═══════════════════════════════════════════
