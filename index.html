@@ -1253,7 +1253,7 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; col
       <div class="form-group">
         <label for="mileage">누적 주행거리</label>
         <div class="input-with-unit">
-          <input type="number" id="mileage" placeholder="예: 45000" min="0" max="500000">
+          <input type="number" id="mileage" value="45000" placeholder="예: 45000" min="0" max="500000">
           <span class="unit">km</span>
         </div>
       </div>
@@ -2169,7 +2169,14 @@ function onGenerationChange() {
 }
 
 function onYearChange() {
-  // 연식 선택 완료
+  const y = parseInt(document.getElementById('year').value);
+  if (!y) return;
+  const mileageEl = document.getElementById('mileage');
+  // 연식 선택 시 주행거리가 비어있거나 0 이하인 경우 연식에 맞는 표준 주행거리(연 1.5만km) 자동 세팅
+  if (!mileageEl.value || parseInt(mileageEl.value) <= 0) {
+    const age = Math.max(0, CURRENT_YEAR - y);
+    mileageEl.value = Math.max(10000, age * 15000);
+  }
 }
 
 // ═════════════════════════════════════════════════════════════
@@ -2179,18 +2186,39 @@ function calculate() {
   const brand = document.getElementById('brand').value;
   const model = document.getElementById('model').value;
   const genIdx = document.getElementById('generation').value;
-  const year = parseInt(document.getElementById('year').value);
-  const mileage = parseInt(document.getElementById('mileage').value);
+  const yearVal = document.getElementById('year').value;
+  const year = parseInt(yearVal);
+  let mileage = parseInt(document.getElementById('mileage').value);
   const fuel = document.getElementById('fuel').value;
   const accident = document.getElementById('accident').value;
-  const newPrice = parseInt(document.getElementById('newPrice').value);
+  let newPrice = parseInt(document.getElementById('newPrice').value);
 
-  if (!brand) return alert('제조사를 선택해 주세요.');
-  if (!model) return alert('대표 차종을 선택해 주세요.');
-  if (genIdx === "") return alert('세부 모델/세대를 선택해 주세요.');
-  if (!year) return alert('연식을 선택해 주세요.');
-  if (!mileage && mileage !== 0) return alert('주행거리를 입력해 주세요.');
-  if (!newPrice) return alert('신차 출고가를 입력해 주세요.');
+  if (!brand) {
+    document.getElementById('brand').focus();
+    return alert('제조사를 선택해 주세요.');
+  }
+  if (!model) {
+    document.getElementById('model').focus();
+    return alert('대표 차종을 선택해 주세요.');
+  }
+  if (genIdx === "") {
+    document.getElementById('generation').focus();
+    return alert('세부 모델/세대를 선택해 주세요.');
+  }
+  if (!year) {
+    document.getElementById('year').focus();
+    return alert('연식을 선택해 주세요.');
+  }
+  if (isNaN(mileage) || mileage < 0) {
+    const age = Math.max(0, CURRENT_YEAR - year);
+    mileage = Math.max(10000, age * 15000);
+    document.getElementById('mileage').value = mileage;
+  }
+  if (isNaN(newPrice) || newPrice <= 0) {
+    const genData = VEHICLE_HIERARCHY[brand].models[model][genIdx];
+    newPrice = Math.round((genData.min + genData.max) / 2);
+    document.getElementById('newPrice').value = newPrice;
+  }
 
   const curYear = CURRENT_YEAR;
   const age = Math.max(0, curYear - year);
