@@ -1123,7 +1123,8 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; col
 
 <body>
 
-<!-- ─── 0. 첫 접속 팝업 배너 (광고 포함) ─── -->
+<!-- ─── 0. 첫 접속 팝업 배너 (애드센스 심사 기간 비활성화: 승인 후 필요 시 재활성화) ─── -->
+<!--
 <div id="welcomeModal" class="modal-overlay" style="display:none;">
   <div class="modal-content">
     <button class="modal-close" onclick="closeWelcomeModal()">&times;</button>
@@ -1133,7 +1134,6 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; col
       <p>딜러 매입가부터 이전등록 취득세까지<br>회원가입 없이 즉시 무료로 확인하세요.</p>
     </div>
 
-    <!-- 팝업 내부 전면 광고 영역 -->
     <div class="modal-ad-box">
       <span class="ad-tag" style="font-size:11px;color:#94a3b8;margin-bottom:8px;">📢 SPONSORED ADVERTISEMENT</span>
       <ins class="adsbygoogle"
@@ -1155,6 +1155,7 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; col
     </div>
   </div>
 </div>
+-->
 
 <!-- ─── 상단 네비게이션 ─── -->
 <nav class="top-nav">
@@ -2036,26 +2037,17 @@ document.addEventListener('DOMContentLoaded', function() {
     opt.textContent = b;
     brandSel.appendChild(opt);
   }
-  checkWelcomeModal();
+  // checkWelcomeModal(); // 애드센스 심사 기간 비활성화 (승인 후 필요 시 재활성화)
 });
 
 function checkWelcomeModal() {
-  const hideUntil = localStorage.getItem('hideWelcomeModalUntil');
-  const now = new Date().getTime();
-  if (!hideUntil || now > parseInt(hideUntil)) {
-    setTimeout(() => {
-      document.getElementById('welcomeModal').style.display = 'flex';
-    }, 400);
-  }
+  // 구글 애드센스 심사 승인 전까지 심사관 심사 통과를 위해 팝업 비활성화
+  return;
 }
 
 function closeWelcomeModal() {
-  const chk = document.getElementById('chkDontShowToday');
-  if (chk && chk.checked) {
-    const expireTime = new Date().getTime() + 24 * 60 * 60 * 1000;
-    localStorage.setItem('hideWelcomeModalUntil', expireTime);
-  }
-  document.getElementById('welcomeModal').style.display = 'none';
+  const el = document.getElementById('welcomeModal');
+  if (el) el.style.display = 'none';
 }
 
 // 1. 제조사 변경 시 -> 대표 차종(중분류) 채우기
