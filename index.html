@@ -1169,7 +1169,7 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; col
 
 <!-- ─── Header ─── -->
 <header>
-  <div class="badge">🏛️ 행정안전부 고시 시가표준액 & 지방세법 취득세율 기준</div>
+  <div class="badge">🏛️ <span class="current-year-txt"></span>년 행정안전부 고시 시가표준액 & 지방세법 취득세율 기준</div>
   <h1><span class="emoji">📉</span> 중고차 감가상각 & 세금 계산기</h1>
   <p>제조사 · 대표 차종 · 세부 세대 모델별 출고가를 매핑하여<br>실거래 시세와 법정 취등록세를 정확하게 산출합니다.</p>
 </header>
@@ -1638,7 +1638,7 @@ footer .disclaimer { max-width: 650px; margin: 0 auto 16px; font-size: 12px; col
   <div class="disclaimer">
     ⚠️ 본 계산기는 행정안전부 고시 자동차 시가표준액 산정 잔가율표 및 지방세법, 지자체 조례에 따라 법정 산식을 적용한 참고용 금융 도구입니다. 정확한 차량 출고가격(자동차등록증 ⑤번)을 입력하실 경우 법정 세액을 더욱 정확하게 확인하실 수 있습니다.
   </div>
-  <p>© 2025 스마트카 계산기 | 문의: <a href="mailto:aringding@naver.com" style="color:#60a5fa;">aringding@naver.com</a> | 
+  <p>© <span id="copyrightYear"></span> 스마트카 계산기 | 문의: <a href="mailto:aringding@naver.com" style="color:#60a5fa;">aringding@naver.com</a> | 
     <a onclick="openPolicyModal('privacy')">개인정보처리방침</a> · 
     <a onclick="openPolicyModal('terms')">이용약관</a> · 
     <a onclick="openPolicyModal('about')">운영자 정보</a>
@@ -2029,7 +2029,26 @@ const ACCIDENT_FACTOR = { none: 1.0, minor: 0.95, moderate: 0.90, major: 0.80 };
 // ═══════════════════════════════════════════
 // 4. 드롭다운 연쇄 제어 (대분류 > 중분류 > 소분류 > 연식)
 // ═══════════════════════════════════════════
+const CURRENT_YEAR = new Date().getFullYear();
+
 document.addEventListener('DOMContentLoaded', function() {
+  // 현재 연도 텍스트 동적 자동 반영 (헤더 고시 기준 및 푸터 저작권)
+  document.querySelectorAll('.current-year-txt').forEach(el => el.textContent = CURRENT_YEAR);
+  const cpEl = document.getElementById('copyrightYear');
+  if (cpEl) cpEl.textContent = CURRENT_YEAR;
+
+  // 현재 생산 중인 최신 세대 모델의 end 연도를 현재 연도로 자동 확장 (해가 바뀌어도 자동 업데이트)
+  for (const b in VEHICLE_HIERARCHY) {
+    const models = VEHICLE_HIERARCHY[b].models;
+    for (const m in models) {
+      models[m].forEach(g => {
+        if (g.end >= 2026) {
+          g.end = Math.max(g.end, CURRENT_YEAR);
+        }
+      });
+    }
+  }
+
   const brandSel = document.getElementById('brand');
   for (const b in VEHICLE_HIERARCHY) {
     const opt = document.createElement('option');
@@ -2101,7 +2120,9 @@ function onModelChange() {
   genList.forEach((g, idx) => {
     const opt = document.createElement('option');
     opt.value = idx;
-    opt.textContent = `${g.name} (${g.start}~${g.end}년형)`;
+    const isOngoing = (g.end >= CURRENT_YEAR);
+    const rangeTxt = isOngoing ? `${g.start}~현재(${CURRENT_YEAR}년)` : `${g.start}~${g.end}년형`;
+    opt.textContent = `${g.name} (${rangeTxt})`;
     genSel.appendChild(opt);
   });
 }
@@ -2124,9 +2145,8 @@ function onGenerationChange() {
   const g = VEHICLE_HIERARCHY[brand].models[model][genIdx];
   yearSel.disabled = false;
 
-  // 해당 세대의 생산 연도만 연식 드롭다운에 추가
-  const curYear = new Date().getFullYear();
-  const maxEnd = Math.min(g.end, curYear);
+  // 해당 세대의 생산 연도만 연식 드롭다운에 추가 (현재 연도까지 자동 연장)
+  const maxEnd = Math.min(g.end, CURRENT_YEAR);
   for (let y = maxEnd; y >= g.start; y--) {
     const opt = document.createElement('option');
     opt.value = y;
@@ -2137,7 +2157,9 @@ function onGenerationChange() {
   // 출고가 기본 세팅
   const avgPrice = Math.round((g.min + g.max) / 2);
   document.getElementById('newPrice').value = avgPrice;
-  descEl.textContent = `공식 출시 기간: ${g.start}~${g.end}년 | 신차 출고가 범위: ${g.min.toLocaleString()}만 ~ ${g.max.toLocaleString()}만원`;
+  const isOngoing = (g.end >= CURRENT_YEAR);
+  const periodTxt = isOngoing ? `${g.start}~현재(${CURRENT_YEAR}년)` : `${g.start}~${g.end}년`;
+  descEl.textContent = `공식 출시 기간: ${periodTxt} | 신차 출고가 범위: ${g.min.toLocaleString()}만 ~ ${g.max.toLocaleString()}만원`;
 
   if (g.isEV) {
     document.getElementById('fuel').value = 'ev';
@@ -2170,7 +2192,7 @@ function calculate() {
   if (!mileage && mileage !== 0) return alert('주행거리를 입력해 주세요.');
   if (!newPrice) return alert('신차 출고가를 입력해 주세요.');
 
-  const curYear = new Date().getFullYear();
+  const curYear = CURRENT_YEAR;
   const age = Math.max(0, curYear - year);
 
   const genData = VEHICLE_HIERARCHY[brand].models[model][genIdx];
@@ -2365,8 +2387,9 @@ function showResults(r) {
     if (isNow) tr.className = 'highlight';
     const prevPrice = i > 0 ? r.yearlyData[i-1].retailPrice : d.retailPrice;
     const annualDep = i > 0 ? prevPrice - d.retailPrice : 0;
+    const calendarYear = r.year + i;
     tr.innerHTML = `
-      <td>${i === 0 ? '신차' : i + '년차'}${isNow ? ' (현재)' : ''}</td>
+      <td>${i === 0 ? '출고 (신차)' : i + '년차 (' + calendarYear + '년)'}${isNow ? ' 📍현재' : ''}</td>
       <td class="num">${(d.statRate * 100).toFixed(1)}%</td>
       <td class="num" style="color:#2563eb;font-weight:600;">${(d.mktRate * 100).toFixed(1)}%</td>
       <td class="num">${formatNum(d.retailPrice)}만원</td>
@@ -2441,8 +2464,9 @@ function drawChart(r) {
     if (i % 2 === 0 || i === r.age) {
       const x = pad.left + (chartW / (data.length - 1)) * i;
       const isNow = (i === r.age);
+      const labelText = r.year ? `${r.year + i}년` : `${d.year}년`;
       xLabels += `
-        <text x="${x}" y="${H - pad.bottom + 22}" fill="${isNow ? '#dc2626' : '#64748b'}" font-size="${isNow ? '12' : '11'}" font-weight="${isNow ? 'bold' : 'normal'}" font-family="Noto Sans KR, sans-serif" text-anchor="middle">${d.year}년</text>
+        <text x="${x}" y="${H - pad.bottom + 22}" fill="${isNow ? '#dc2626' : '#64748b'}" font-size="${isNow ? '12' : '11'}" font-weight="${isNow ? 'bold' : 'normal'}" font-family="Noto Sans KR, sans-serif" text-anchor="middle">${labelText}${isNow ? '(현재)' : ''}</text>
       `;
     }
   });
@@ -2479,9 +2503,10 @@ function drawChart(r) {
 
   let dots = '';
   retailPoints.forEach((p) => {
+    const labelYear = r.year ? `${r.year + p.year}년(${p.year}년차)` : `${p.year}년차`;
     dots += `
       <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.5" fill="#2563eb" opacity="0.85">
-        <title>${p.year}년차 소매시세: ${formatNum(p.price)}만원</title>
+        <title>${labelYear} 소매시세: ${formatNum(p.price)}만원</title>
       </circle>
     `;
   });
